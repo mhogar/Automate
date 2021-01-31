@@ -1,1 +1,1 @@
-AnimationProto
+AutoMate - Auto Animate
