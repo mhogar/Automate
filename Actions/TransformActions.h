@@ -1,4 +1,4 @@
-#include "TimedAction.h"
+#include "Action.h"
 
 class TranslateAction : public TimedAction {
     public:

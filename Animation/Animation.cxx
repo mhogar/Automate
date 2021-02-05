@@ -8,6 +8,7 @@ Animation::Animation() : Animation(30) {
 Animation::Animation(int framerate) {
     mFramerate = framerate;
     mActionItr = mActions.begin();
+    mIsHalted = false;
 }
 
 void Animation::Delay(int duration) {
@@ -22,14 +23,53 @@ void Animation::Opacity(int duration) {
     mActions.push_back(new OpacityAction(duration * mFramerate));
 }
 
-Action* Animation::GetAction() {
-    return *mActionItr;
+void Animation::AddChildAnimation(Animation child) {
+    mChildAnimations.push_back(child);
 }
 
-void Animation::NextAction() {
-    mActionItr++;
+std::list<Action*> Animation::GetNextActions() {
+    std::list<Action*> actions;
+
+    while (!IsAnimationComplete()) {
+        Action* action = *mActionItr;
+
+        if (mIsHalted && !action->IsResolved()) {
+            break;
+        }
+        mIsHalted = false;
+
+        action->Initialize();
+        actions.push_back(action);
+
+        if (action->IsHalting()) {
+            mIsHalted = true;
+            break;
+        }
+
+        mActionItr++;
+    }
+
+    for (Animation& child : mChildAnimations) {
+        actions.splice(actions.end(), child.GetNextActions());
+    }
+
+    return actions;
 }
 
-bool Animation::HasNextAction() {
-    return mActionItr != mActions.end();
+bool Animation::IsAnimationComplete() {
+    return mActionItr == mActions.end();
+}
+
+bool Animation::IsAnimationAndChildrenComplete() {
+    if (!IsAnimationComplete()) {
+        return false;
+    }
+
+    for (Animation& child : mChildAnimations) {
+        if (!child.IsAnimationAndChildrenComplete()) {
+            return false;
+        }
+    }
+    
+    return true;
 }

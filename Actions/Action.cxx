@@ -1,5 +1,10 @@
-#include "TimedAction.h"
-#include <iostream>
+#include "Action.h"
+
+bool Action::IsHalting() {
+    return mIsHalting;
+}
+
+//-----------------------------------------------------------------------
 
 TimedAction::TimedAction(int durationFrames) {
     mDurationFrames = durationFrames;

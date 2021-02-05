@@ -1,16 +1,15 @@
 #include "Animation.h"
-#include <unordered_set>
+#include <list>
 
 class AnimationRenderer {
     public:
         AnimationRenderer();
 
-        void Render();
+        void Render(Animation animation);
 
     private:
-        void RenderAnimation(Animation animation);
+        void ResolveActions();
         void RenderFrame();
 
-        std::list<Animation> mAnimations;
-        std::unordered_set<Action*> mActiveActions;
+        std::list<Action*> mActiveActions;
 };

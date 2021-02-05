@@ -3,53 +3,31 @@
 AnimationRenderer::AnimationRenderer() {
 }
 
-void AnimationRenderer::Render() {
-    bool allAnimationsFinished;
-    do {
-        allAnimationsFinished = true;
+void AnimationRenderer::Render(Animation animation) {
+    while (!animation.IsAnimationAndChildrenComplete()) {
+        mActiveActions.splice(mActiveActions.end(), animation.GetNextActions());
 
-        for (Animation animation : mAnimations) {
-            RenderAnimation(animation);
-            if (animation.HasNextAction()) {
-                allAnimationsFinished = false;
-            }
-        }
-
+        ResolveActions();
         RenderFrame();
-    } while (!allAnimationsFinished);
+    }
 }
 
-void AnimationRenderer::RenderAnimation(Animation animation) {
-    while (animation.HasNextAction()) {
-        Action* action = animation.GetAction();
+void AnimationRenderer::ResolveActions() {
+    std::list<Action*> resolvedActions;
 
-        if (mActiveActions.find(action) != mActiveActions.end()) {
-            action->Initialize();
-            mActiveActions.insert(action);
-        }
+    for (Action* action : mActiveActions) {
+        action->Execute();
 
-        if (action->IsHalting() && !action->IsResolved()) {
-            break;
+        if (action->IsResolved()) {
+            resolvedActions.push_back(action);
         }
-        animation.NextAction();
+    }
+
+    for (Action* action : resolvedActions) {
+        mActiveActions.remove(action);
     }
 }
 
 void AnimationRenderer::RenderFrame() {
-    std::list<Action*> resolvedActions;
-
-    for (Action* action : mActiveActions) {
-        if (action->IsResolved()) {
-            resolvedActions.push_back(action);
-            continue;
-        }
-
-        action->Execute();
-    }
-
-    for (Action* action : resolvedActions) {
-        mActiveActions.erase(action);
-    }
-
     // TODO: render frame using actors
 }

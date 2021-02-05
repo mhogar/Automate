@@ -12,12 +12,17 @@ class Animation {
         void Translate(int duration);
         void Opacity(int duration);
 
-        Action* GetAction();
-        void NextAction();
-        bool HasNextAction();
+        void AddChildAnimation(Animation child);
+
+        std::list<Action*> GetNextActions();
+        bool IsAnimationComplete();
+        bool IsAnimationAndChildrenComplete();
     private:
+        std::list<Animation> mChildAnimations;
+
         std::list<Action*> mActions;
         std::list<Action*>::iterator mActionItr;
+        bool mIsHalted;
 
         int mFramerate;
 };
