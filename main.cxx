@@ -1,19 +1,16 @@
 #include "AnimationRenderer.h"
-#include "Animation/AnimationBuilder.h"
+#include "Animation/AnimationParser.h"
 
-Animation BuildAnimation();
+void AnimationSrc(AnimationBuilder*);
 
 int main() {
-    AnimationRenderer renderer;
-    renderer.RenderAnimation(BuildAnimation());
+    AnimationRenderer::RenderAnimation(
+        AnimationParser::ParseFromCode(30, AnimationSrc)
+    );
 }
 
-Animation BuildAnimation() {
-    AnimationBuilder builder = AnimationBuilder(30);
-
-    builder.Translate(2);
-    builder.Delay(1);
-    builder.Opacity(1);
-    
-    return builder.FinalizeAnimation();
+void AnimationSrc(AnimationBuilder* b) {
+    b->Translate(2);
+    b->Delay(1);
+    b->Opacity(1);
 }

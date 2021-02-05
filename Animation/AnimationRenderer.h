@@ -3,11 +3,11 @@
 
 class AnimationRenderer {
     public:
-        void RenderAnimation(Animation animation);
+        static void RenderAnimation(Animation animation);
         
     private:
-        void ResolveActions();
-        void RenderFrame();
+        static void ResolveActions();
+        static void RenderFrame();
 
-        std::list<Action*> mActiveActions;
+        static std::list<Action*> mActiveActions;
 };
