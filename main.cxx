@@ -1,10 +1,19 @@
-#include "Animation.h"
+#include "AnimationRenderer.h"
+#include "Animation/AnimationBuilder.h"
+
+Animation BuildAnimation();
 
 int main() {
-    Animation anim = Animation(15);
+    AnimationRenderer renderer;
+    renderer.RenderAnimation(BuildAnimation());
+}
 
-    anim.TranslateY(2);
-    anim.Delay(1);
-    anim.Opacity(1);
-    anim.Wait();
+Animation BuildAnimation() {
+    AnimationBuilder builder = AnimationBuilder(30);
+
+    builder.Translate(2);
+    builder.Delay(1);
+    builder.Opacity(1);
+    
+    return builder.FinalizeAnimation();
 }

@@ -3,10 +3,8 @@
 
 class AnimationRenderer {
     public:
-        AnimationRenderer();
-
-        void Render(Animation animation);
-
+        void RenderAnimation(Animation animation);
+        
     private:
         void ResolveActions();
         void RenderFrame();

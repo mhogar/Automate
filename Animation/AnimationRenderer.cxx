@@ -1,9 +1,6 @@
 #include "AnimationRenderer.h"
 
-AnimationRenderer::AnimationRenderer() {
-}
-
-void AnimationRenderer::Render(Animation animation) {
+void AnimationRenderer::RenderAnimation(Animation animation) {
     while (!animation.IsAnimationAndChildrenComplete()) {
         mActiveActions.splice(mActiveActions.end(), animation.GetNextActions());
 

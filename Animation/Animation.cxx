@@ -2,25 +2,13 @@
 #include "Actions/StdActions.h"
 #include "Actions/TransformActions.h"
 
-Animation::Animation() : Animation(30) {
-}
-
-Animation::Animation(int framerate) {
-    mFramerate = framerate;
+Animation::Animation() {
     mActionItr = mActions.begin();
     mIsHalted = false;
 }
 
-void Animation::Delay(int duration) {
-    mActions.push_back(new DelayAction(duration * mFramerate));
-}
-
-void Animation::Translate(int duration) {
-    mActions.push_back(new TranslateAction(duration * mFramerate));
-}
-
-void Animation::Opacity(int duration) {
-    mActions.push_back(new OpacityAction(duration * mFramerate));
+void Animation::AddAction(Action* action) {
+    mActions.push_back(action);
 }
 
 void Animation::AddChildAnimation(Animation child) {

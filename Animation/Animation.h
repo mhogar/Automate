@@ -4,14 +4,8 @@
 class Animation {
     public:
         Animation();
-        Animation(int framerate);
 
-        //void Wait();
-        void Delay(int duration);
-
-        void Translate(int duration);
-        void Opacity(int duration);
-
+        void AddAction(Action* action);
         void AddChildAnimation(Animation child);
 
         std::list<Action*> GetNextActions();
@@ -23,6 +17,4 @@ class Animation {
         std::list<Action*> mActions;
         std::list<Action*>::iterator mActionItr;
         bool mIsHalted;
-
-        int mFramerate;
 };
