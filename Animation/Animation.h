@@ -4,20 +4,22 @@
 #include "Actions/Action.h"
 #include <list>
 
+class Action;
+
 class Animation {
     public:
-        Animation();
+        Animation() {};
         ~Animation();
 
-        void Reset();
+        void Initialize();
 
         void AddAction(Action* action);
         void AddChildAnimation(Animation* child);
 
-        bool HasActiveActions() const;
+        int GetNumActiveActions() const;
         bool IsAnimationComplete() const;
 
-        void NotifyActionResolved(Action* action);
+        void NotifyActionResolved();
         std::list<Action*> GetNextActions();
 
     private:

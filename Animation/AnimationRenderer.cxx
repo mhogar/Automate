@@ -1,8 +1,19 @@
 #include "AnimationRenderer.h"
 
 std::list<Action*> AnimationRenderer::mActiveActions;
+int AnimationRenderer::mFrameRate = 30;
+
+void AnimationRenderer::ConfigureFrameRate(int framerate) {
+    mFrameRate = framerate;
+}
+
+int AnimationRenderer::GetFrameRate() {
+    return mFrameRate;
+}
 
 void AnimationRenderer::RenderAnimation(Animation& animation) {
+    animation.Initialize();
+
     while (!animation.IsAnimationComplete()) {
         mActiveActions.splice(mActiveActions.end(), animation.GetNextActions());
 
@@ -19,7 +30,7 @@ void AnimationRenderer::ResolveActions(Animation& animation) {
 
         if (action->IsResolved()) {
             resolvedActions.push_back(action);
-            animation.NotifyActionResolved(action);
+            action->NotifyParentActionResolved();
         }
     }
 

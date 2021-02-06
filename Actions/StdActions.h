@@ -2,36 +2,32 @@
 #define ACTIONS_STD_ACTION_H
 
 #include "Action.h"
-#include "Animation/Animation.h"
+#include <memory>
 
 class DelayAction : public TimedAction {
     public:
-        DelayAction(int durationFrames);
+        DelayAction(Animation* parent, int duration);
 };
 
 class WaitAction : public Action {
     public:
-        WaitAction(const Animation* parent);
+        WaitAction(Animation* parent);
         virtual bool IsResolved();
-    
-    protected:
-        const Animation* mParent;
 };
 
 class RunAsyncAnimationAction : public Action {
     public:
-        RunAsyncAnimationAction(Animation* parent, Animation* animation);
+        RunAsyncAnimationAction(Animation* parent, std::shared_ptr<Animation> animation);
         virtual void Initialize();
         virtual bool IsResolved();
 
     protected:
-        Animation* mParent;
-        Animation* mAnimation;
+        std::shared_ptr<Animation> mAnimation;
 };
 
 class RunAnimationAction : public RunAsyncAnimationAction {
     public:
-        RunAnimationAction(Animation* parent, Animation* animation);
+        RunAnimationAction(Animation* parent, std::shared_ptr<Animation> animation);
         virtual bool IsResolved();
 };
 

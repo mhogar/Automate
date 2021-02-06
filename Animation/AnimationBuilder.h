@@ -6,21 +6,20 @@
 
 class AnimationBuilder {
     public: 
-        AnimationBuilder(int framerate);
+        AnimationBuilder();
         std::shared_ptr<Animation> GetAnimation() const;
 
         void Delay(int duration);
         void Wait();
 
-        void RunAnimation(Animation* animation);
-        void RunAsyncAnimation(Animation* animation);
+        void Run(std::shared_ptr<Animation> animation);
+        void RunAsync(std::shared_ptr<Animation> animation);
 
         void Translate(int duration);
         void Opacity(int duration);
 
     private:
         std::shared_ptr<Animation> mAnimation;
-        int mFramerate;
 };
 
 #endif

@@ -1,8 +1,8 @@
 #include "TransformActions.h"
 #include <iostream>
 
-TranslateAction::TranslateAction(int durationFrames)
-    : TimedAction(durationFrames) {}
+TranslateAction::TranslateAction(Animation* parent, int duration)
+    : TimedAction(parent, duration) {}
 
 void TranslateAction::Execute() {
     TimedAction::Execute();
@@ -10,8 +10,8 @@ void TranslateAction::Execute() {
     std::cout << "Translate " << mCurrentFrame << std::endl;
 }
 
-OpacityAction::OpacityAction(int durationFrames)
-    : TimedAction(durationFrames) {}
+OpacityAction::OpacityAction(Animation* parent, int duration)
+    : TimedAction(parent, duration) {}
 
 void OpacityAction::Execute() {
     TimedAction::Execute();

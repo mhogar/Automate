@@ -1,27 +1,17 @@
 #include "Animation.h"
 #include "Actions/StdActions.h"
 #include "Actions/TransformActions.h"
-#include <iostream>
-
-Animation::Animation() {
-    Reset();
-}
 
 Animation::~Animation() {
-    std::cout << "Delete Animation" << std::endl;
     for (Action* action : mActions) {
         delete action;
     }
 }
 
-void Animation::Reset() {
+void Animation::Initialize() {
     mActionItr = mActions.begin();
-    mNumActiveActions = 1;
+    mNumActiveActions = 0;
     mIsHalted = false;
-
-    for (Animation* child : mChildAnimations) {
-        child->Reset();
-    }
     mChildAnimations.clear();
 }
 
@@ -33,21 +23,16 @@ void Animation::AddChildAnimation(Animation* child) {
     mChildAnimations.push_back(child);
 }
 
-void Animation::NotifyActionResolved(Action* action) {
-    // double check action is actually resolved
-    if (!action->IsResolved()) {
-        return;
-    }
-
+void Animation::NotifyActionResolved() {
     mNumActiveActions--;
 }
 
-bool Animation::HasActiveActions() const {
-    return mNumActiveActions > 0;
+int Animation::GetNumActiveActions() const {
+    return mNumActiveActions;
 }
 
 bool Animation::IsAnimationComplete() const {
-    if (mActionItr != mActions.end() || HasActiveActions()) {
+    if (mActionItr != mActions.end() || mNumActiveActions > 0) {
         return false;
     }
 
@@ -66,13 +51,19 @@ std::list<Action*> Animation::GetNextActions() {
     while (mActionItr != mActions.end()) {
         Action* action = *mActionItr;
 
-        if (mIsHalted && !action->IsResolved()) {
-            break;
+        if (mIsHalted) {
+            if (!action->IsResolved()) {
+                break;
+            }
+            
+            mIsHalted = false;
+            mActionItr++;
+            continue;
         }
-        mIsHalted = false;
 
         action->Initialize();
         actions.push_back(action);
+        mNumActiveActions++;
 
         if (action->IsHalting()) {
             mIsHalted = true;
@@ -80,7 +71,6 @@ std::list<Action*> Animation::GetNextActions() {
         }
 
         mActionItr++;
-        mNumActiveActions++;
     }
 
     for (Animation* child : mChildAnimations) {

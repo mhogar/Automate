@@ -1,15 +1,29 @@
 #include "Animation/AnimationRenderer.h"
-#include "Animation/AnimationParser.h"
+#include "Animation/AnimationBuilder.h"
 
-void AnimationSrc(AnimationBuilder*);
+std::shared_ptr<Animation> RootAnimation();
+std::shared_ptr<Animation> ChildAnimation();
 
 int main() {
-    std::shared_ptr<Animation> animation = AnimationParser::ParseFromCode(30, AnimationSrc);
+    auto animation = RootAnimation();
+
+    AnimationRenderer::ConfigureFrameRate(10);
     AnimationRenderer::RenderAnimation(*animation);
 }
 
-void AnimationSrc(AnimationBuilder* b) {
-    b->Translate(2);
-    b->Delay(1);
-    b->Opacity(1);
+std::shared_ptr<Animation> RootAnimation() {
+    AnimationBuilder b;
+
+    b.RunAsync(ChildAnimation());
+    b.Translate(1);
+
+    return b.GetAnimation();
+}
+
+std::shared_ptr<Animation> ChildAnimation() {
+    AnimationBuilder b;
+
+    b.Opacity(2);
+
+    return b.GetAnimation();
 }

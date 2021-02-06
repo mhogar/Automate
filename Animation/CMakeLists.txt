@@ -1,4 +1,4 @@
-add_library(animation Animation.cxx AnimationBuilder.cxx AnimationParser.cxx AnimationRenderer.cxx)
+add_library(animation Animation.cxx AnimationBuilder.cxx AnimationRenderer.cxx)
 
 target_link_libraries(animation PRIVATE actions)
 
