@@ -1,5 +1,8 @@
 .vscode/*
 !.vscode/launch.json
 
-build/*
-!build/.keep
+build/debug/*
+!build/debug/.keep
+
+build/release/*
+!build/release/.keep
