@@ -3,5 +3,5 @@
 
 class AnimationParser {
     public:
-        static Animation ParseFromCode(int framerate, std::function<void(AnimationBuilder*)> code);
+        static std::shared_ptr<Animation> ParseFromCode(int framerate, std::function<void(AnimationBuilder*)> codeFunc);
 };

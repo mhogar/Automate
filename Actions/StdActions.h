@@ -8,26 +8,26 @@ class DelayAction : public TimedAction {
 
 class WaitAction : public Action {
     public:
-        WaitAction(Animation* parent);
+        WaitAction(const Animation* parent);
         virtual bool IsResolved();
     
     protected:
-        Animation* mParent;
+        const Animation* mParent;
 };
 
 class RunAsyncAnimationAction : public Action {
     public:
-        RunAsyncAnimationAction(Animation* parent, Animation animation);
+        RunAsyncAnimationAction(Animation* parent, Animation* animation);
         virtual void Initialize();
         virtual bool IsResolved();
 
     protected:
         Animation* mParent;
-        Animation mAnimation;
+        Animation* mAnimation;
 };
 
 class RunAnimationAction : public RunAsyncAnimationAction {
     public:
-        RunAnimationAction(Animation* parent, Animation animation);
+        RunAnimationAction(Animation* parent, Animation* animation);
         virtual bool IsResolved();
 };

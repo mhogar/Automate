@@ -1,15 +1,15 @@
 #include "AnimationRenderer.h"
 
-void AnimationRenderer::RenderAnimation(Animation animation) {
-    while (!animation.IsAnimationAndChildrenComplete()) {
+void AnimationRenderer::RenderAnimation(Animation& animation) {
+    while (!animation.IsAnimationComplete()) {
         mActiveActions.splice(mActiveActions.end(), animation.GetNextActions());
 
-        ResolveActions();
+        ResolveActions(animation);
         RenderFrame();
     }
 }
 
-void AnimationRenderer::ResolveActions() {
+void AnimationRenderer::ResolveActions(Animation& animation) {
     std::list<Action*> resolvedActions;
 
     for (Action* action : mActiveActions) {
@@ -17,6 +17,7 @@ void AnimationRenderer::ResolveActions() {
 
         if (action->IsResolved()) {
             resolvedActions.push_back(action);
+            animation.NotifyActionResolved(action);
         }
     }
 

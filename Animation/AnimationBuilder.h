@@ -1,20 +1,21 @@
 #include "Animation.h"
+#include <memory>
 
 class AnimationBuilder {
     public: 
         AnimationBuilder(int framerate);
-        Animation FinalizeAnimation();
+        std::shared_ptr<Animation> GetAnimation() const;
 
         void Delay(int duration);
         void Wait();
 
-        void RunAnimation(Animation animation);
-        void RunAsyncAnimation(Animation animation);
+        void RunAnimation(Animation* animation);
+        void RunAsyncAnimation(Animation* animation);
 
         void Translate(int duration);
         void Opacity(int duration);
 
     private:
-        Animation mAnimation;
+        std::shared_ptr<Animation> mAnimation;
         int mFramerate;
 };

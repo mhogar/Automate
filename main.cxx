@@ -4,9 +4,8 @@
 void AnimationSrc(AnimationBuilder*);
 
 int main() {
-    AnimationRenderer::RenderAnimation(
-        AnimationParser::ParseFromCode(30, AnimationSrc)
-    );
+    std::shared_ptr<Animation> animation = AnimationParser::ParseFromCode(30, AnimationSrc);
+    AnimationRenderer::RenderAnimation(*animation);
 }
 
 void AnimationSrc(AnimationBuilder* b) {

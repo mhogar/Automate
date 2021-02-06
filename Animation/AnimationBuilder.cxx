@@ -4,30 +4,29 @@
 
 AnimationBuilder::AnimationBuilder(int framerate) {
     mFramerate = framerate;
+    mAnimation = std::shared_ptr<Animation>(new Animation());
 }
 
-Animation AnimationBuilder::FinalizeAnimation() {
-    mAnimation.AddAction(new WaitAction(&mAnimation));
-
+std::shared_ptr<Animation> AnimationBuilder::GetAnimation() const {
     return mAnimation;
 }
 
 void AnimationBuilder::Delay(int duration) {
-    mAnimation.AddAction(new DelayAction(duration * mFramerate));
+    mAnimation->AddAction(new DelayAction(duration * mFramerate));
 }
 
-void AnimationBuilder::RunAnimation(Animation animation) {
-    mAnimation.AddAction(new RunAnimationAction(&mAnimation, animation));
+void AnimationBuilder::RunAnimation(Animation* animation) {
+    mAnimation->AddAction(new RunAnimationAction(mAnimation.get(), animation));
 }
 
-void AnimationBuilder::RunAsyncAnimation(Animation animation) {
-    mAnimation.AddAction(new RunAsyncAnimationAction(&mAnimation, animation));
+void AnimationBuilder::RunAsyncAnimation(Animation* animation) {
+    mAnimation->AddAction(new RunAsyncAnimationAction(mAnimation.get(), animation));
 }
 
 void AnimationBuilder::Translate(int duration) {
-    mAnimation.AddAction(new TranslateAction(duration * mFramerate));
+    mAnimation->AddAction(new TranslateAction(duration * mFramerate));
 }
 
 void AnimationBuilder::Opacity(int duration) {
-    mAnimation.AddAction(new OpacityAction(duration * mFramerate));
+    mAnimation->AddAction(new OpacityAction(duration * mFramerate));
 }

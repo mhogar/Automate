@@ -4,17 +4,26 @@
 class Animation {
     public:
         Animation();
+        ~Animation();
+
+        void Reset();
 
         void AddAction(Action* action);
-        void AddChildAnimation(Animation child);
+        void AddChildAnimation(Animation* child);
 
+        bool HasActiveActions() const;
+        bool IsAnimationComplete() const;
+
+        void NotifyActionResolved(Action* action);
         std::list<Action*> GetNextActions();
-        bool IsAnimationComplete();
-        bool IsAnimationAndChildrenComplete();
+
     private:
-        std::list<Animation> mChildAnimations;
+        std::list<Animation*> mChildAnimations;
 
         std::list<Action*> mActions;
         std::list<Action*>::iterator mActionItr;
+
+        int mNumActiveActions;
         bool mIsHalted;
+        
 };

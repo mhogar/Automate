@@ -1,24 +1,26 @@
 #include "StdActions.h"
 #include <iostream>
 
-DelayAction::DelayAction(int durationFrames) : TimedAction(durationFrames) {
+DelayAction::DelayAction(int durationFrames)
+    : TimedAction(durationFrames)
+{
     mIsHalting = true;
 }
 
 //-----------------------------------------------------------------------
 
-WaitAction::WaitAction(Animation* parent) {
+WaitAction::WaitAction(const Animation* parent) {
     mParent = parent;
     mIsHalting = true;
 }
 
 bool WaitAction::IsResolved() {
-    return false; //TODO: implement
+    return !mParent->HasActiveActions();
 }
 
 //-----------------------------------------------------------------------
 
-RunAsyncAnimationAction::RunAsyncAnimationAction(Animation* parent, Animation animation) {
+RunAsyncAnimationAction::RunAsyncAnimationAction(Animation* parent, Animation* animation) {
     mParent = parent;
     mAnimation = animation;
 }
@@ -33,10 +35,12 @@ bool RunAsyncAnimationAction::IsResolved() {
 
 //-----------------------------------------------------------------------
 
-RunAnimationAction::RunAnimationAction(Animation* parent, Animation animation) : RunAsyncAnimationAction(parent, animation) {
+RunAnimationAction::RunAnimationAction(Animation* parent, Animation* animation)
+    : RunAsyncAnimationAction(parent, animation)
+{
     mIsHalting = true;
 }
 
 bool RunAnimationAction::IsResolved() {
-    return mAnimation.IsAnimationAndChildrenComplete();
+    return mAnimation->IsAnimationComplete();
 }
