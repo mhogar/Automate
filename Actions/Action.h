@@ -1,3 +1,6 @@
+#ifndef ACTIONS_ACTION_H
+#define ACTIONS_ACTION_H
+
 class Action {
     public:
         virtual ~Action() {}
@@ -22,3 +25,5 @@ class TimedAction : public Action{
         int mCurrentFrame;
         int mDurationFrames;
 };
+
+#endif

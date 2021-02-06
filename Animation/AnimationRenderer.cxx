@@ -1,5 +1,7 @@
 #include "AnimationRenderer.h"
 
+std::list<Action*> AnimationRenderer::mActiveActions;
+
 void AnimationRenderer::RenderAnimation(Animation& animation) {
     while (!animation.IsAnimationComplete()) {
         mActiveActions.splice(mActiveActions.end(), animation.GetNextActions());

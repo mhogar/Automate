@@ -1,3 +1,6 @@
+#ifndef ACTIONS_STD_ACTION_H
+#define ACTIONS_STD_ACTION_H
+
 #include "Action.h"
 #include "Animation/Animation.h"
 
@@ -31,3 +34,5 @@ class RunAnimationAction : public RunAsyncAnimationAction {
         RunAnimationAction(Animation* parent, Animation* animation);
         virtual bool IsResolved();
 };
+
+#endif

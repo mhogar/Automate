@@ -1,4 +1,4 @@
-#include "AnimationRenderer.h"
+#include "Animation/AnimationRenderer.h"
 #include "Animation/AnimationParser.h"
 
 void AnimationSrc(AnimationBuilder*);

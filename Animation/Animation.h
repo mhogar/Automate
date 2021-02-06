@@ -1,3 +1,6 @@
+#ifndef ANIMATION_ANIMATION_H
+#define ANIMATION_ANIMATION_H
+
 #include "Actions/Action.h"
 #include <list>
 
@@ -27,3 +30,5 @@ class Animation {
         bool mIsHalted;
         
 };
+
+#endif

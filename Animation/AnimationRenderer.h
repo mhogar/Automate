@@ -1,3 +1,6 @@
+#ifndef ANIMATION_ANIMATION_RENDERER_H
+#define ANIMATION_ANIMATION_RENDERER_H
+
 #include "Animation.h"
 #include <list>
 
@@ -11,3 +14,5 @@ class AnimationRenderer {
 
         static std::list<Action*> mActiveActions;
 };
+
+#endif

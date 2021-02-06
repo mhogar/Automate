@@ -1,3 +1,6 @@
+#ifndef ANIMATION_ANIMATION_BUILDER_H
+#define ANIMATION_ANIMATION_BUILDER_H
+
 #include "Animation.h"
 #include <memory>
 
@@ -19,3 +22,5 @@ class AnimationBuilder {
         std::shared_ptr<Animation> mAnimation;
         int mFramerate;
 };
+
+#endif

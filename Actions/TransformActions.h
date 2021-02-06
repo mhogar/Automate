@@ -1,3 +1,6 @@
+#ifndef ACTIONS_TRANSFORM_ACTION_H
+#define ACTIONS_TRANSFORM_ACTION_H
+
 #include "Action.h"
 
 class TranslateAction : public TimedAction {
@@ -11,3 +14,5 @@ class OpacityAction : public TimedAction {
         OpacityAction(int numFrames);
         virtual void Execute();
 };
+
+#endif
