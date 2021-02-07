@@ -8,6 +8,8 @@ class AnimationRenderer {
     public:
         static void RenderAnimation(Animation& animation);
 
+        static void Initialize(int framerate);
+        
         static void ConfigureFrameRate(int framerate);
         static int GetFrameRate();
         

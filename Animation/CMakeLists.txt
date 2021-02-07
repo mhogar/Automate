@@ -1,5 +1,6 @@
-add_library(animation Animation.cxx AnimationBuilder.cxx AnimationRenderer.cxx)
+find_package(SDL2 REQUIRED)
 
-target_link_libraries(animation PRIVATE actions)
+add_library(animation Animation.cxx AnimationBuilder.cxx AnimationRenderer.cxx SDLFacade.cxx)
 
-target_include_directories(animation PUBLIC "${PROJECT_SOURCE_DIR}")
+target_link_libraries(animation PRIVATE actions ${SDL2_LIBRARIES})
+target_include_directories(animation PUBLIC "${PROJECT_SOURCE_DIR}" "${SDL2_INCLUDE_DIRS}")

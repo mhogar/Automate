@@ -7,7 +7,7 @@ std::shared_ptr<Animation> ChildAnimation();
 int main() {
     auto animation = RootAnimation();
 
-    AnimationRenderer::ConfigureFrameRate(10);
+    AnimationRenderer::Initialize(10);
     AnimationRenderer::RenderAnimation(*animation);
 }
 
