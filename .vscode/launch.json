@@ -8,7 +8,7 @@
             "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/automate",
+            "program": "${workspaceFolder}/build/debug/automate",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
