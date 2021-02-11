@@ -21,13 +21,14 @@ class Action {
 
 class TimedAction : public Action {
     public:
-        TimedAction(int duration);
+        TimedAction(const Animation* parent, int duration);
 
         virtual void Initialize();
         virtual void Execute();
         virtual bool IsResolved() const;
 
     protected:
+        const Animation* mParent;
         int mCurrentFrame;
         int mDuration;
 };

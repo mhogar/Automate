@@ -20,6 +20,7 @@ class AnimationBuilder {
 
     private:
         std::shared_ptr<Animation> mAnimation;
+        int mFrameRate;
 };
 
 #endif

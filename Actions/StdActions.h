@@ -6,7 +6,7 @@
 
 class DelayAction : public TimedAction {
     public:
-        DelayAction(int duration);
+        DelayAction(const Animation* parent, int duration);
 };
 
 class WaitAction : public Action {

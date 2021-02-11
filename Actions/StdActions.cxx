@@ -1,8 +1,8 @@
 #include "StdActions.h"
 #include <iostream>
 
-DelayAction::DelayAction(int duration)
-    : TimedAction(duration)
+DelayAction::DelayAction(const Animation* parent, int duration)
+    : TimedAction(parent, duration)
 {
     mIsHalting = true;
 }
@@ -26,7 +26,7 @@ RunAsyncAnimationAction::RunAsyncAnimationAction(Animation* parent, std::shared_
 }
 
 void RunAsyncAnimationAction::Initialize() {
-    mAnimation->Initialize();
+    mAnimation->Initialize(mParent->GetFrameRate());
     mParent->AddChildAnimation(mAnimation.get());
 }
 
@@ -43,5 +43,5 @@ RunAnimationAction::RunAnimationAction(Animation* parent, std::shared_ptr<Animat
 }
 
 bool RunAnimationAction::IsResolved() const {
-    return mAnimation->IsAnimationComplete();
+    return mAnimation->IsComplete();
 }

@@ -9,16 +9,16 @@ class Action;
 
 class Animation {
     public:
-        Animation() {};
         ~Animation();
 
-        void Initialize();
+        void Initialize(int framerate);
 
         void AddAction(Action* action);
         void AddChildAnimation(Animation* child);
 
         int GetNumActiveActions() const;
-        bool IsAnimationComplete() const;
+        int GetFrameRate() const;
+        bool IsComplete() const;
 
         void Update();
         void Render();
@@ -34,6 +34,7 @@ class Animation {
         int mNextActionIndex;
 
         bool mIsHalted;
+        int mFrameRate;
 };
 
 #endif

@@ -1,5 +1,4 @@
 #include "Action.h"
-#include "Animation/AnimationRenderer.h"
 
 bool Action::IsHalting() const {
     return mIsHalting;
@@ -7,7 +6,8 @@ bool Action::IsHalting() const {
 
 //-----------------------------------------------------------------------
 
-TimedAction::TimedAction(int duration) {
+TimedAction::TimedAction(const Animation* parent, int duration) {
+    mParent = parent;
     mDuration = duration;
 }
 
@@ -20,5 +20,5 @@ void TimedAction::Execute() {
 }
 
 bool TimedAction::IsResolved() const {
-    return mCurrentFrame >= mDuration * AnimationRenderer::GetFrameRate();
+    return mCurrentFrame >= mDuration * mParent->GetFrameRate();
 }

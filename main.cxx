@@ -1,14 +1,14 @@
-#include "Animation/AnimationRenderer.h"
+#include "Animation/PreviewHandle.h"
 #include "Animation/AnimationBuilder.h"
 
 std::shared_ptr<Animation> RootAnimation();
 std::shared_ptr<Animation> ChildAnimation();
 
 int main() {
-    auto animation = RootAnimation();
+    std::shared_ptr<Animation> animation = RootAnimation();
 
-    AnimationRenderer::Initialize(10);
-    AnimationRenderer::RenderAnimation(*animation);
+    PreviewHandle preivew;
+    preivew.PreviewAnimation(*animation, 10);
 }
 
 std::shared_ptr<Animation> RootAnimation() {

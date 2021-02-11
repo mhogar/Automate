@@ -6,7 +6,8 @@ Animation::~Animation() {
     }
 }
 
-void Animation::Initialize() {
+void Animation::Initialize(int framerate) {
+    mFrameRate = framerate;
     mNextActionIndex = 0;
     mIsHalted = false;
 
@@ -26,13 +27,17 @@ int Animation::GetNumActiveActions() const {
     return mActiveActions.size();
 }
 
-bool Animation::IsAnimationComplete() const {
+int Animation::GetFrameRate() const {
+    return mFrameRate;
+}
+
+bool Animation::IsComplete() const {
     if (mNextActionIndex < mActions.size() || mActiveActions.size() > 0) {
         return false;
     }
 
     for (Animation* child : mChildAnimations) {
-        if (!child->IsAnimationComplete()) {
+        if (!child->IsComplete()) {
             return false;
         }
     }
@@ -50,7 +55,9 @@ void Animation::Update() {
 }
 
 void Animation::Render() {
-    
+    for (Animation* child : mChildAnimations) {
+        child->Render();
+    }
 }
 
 void Animation::UpdateActiveActions() {
