@@ -5,13 +5,13 @@
 
 class TranslateAction : public TimedAction {
     public:
-        TranslateAction(Animation* parent, int duration);
+        TranslateAction(int duration);
         virtual void Execute();
 };
 
 class OpacityAction : public TimedAction {
     public:
-        OpacityAction(Animation* parent, int numFrames);
+        OpacityAction(int numFrames);
         virtual void Execute();
 };
 

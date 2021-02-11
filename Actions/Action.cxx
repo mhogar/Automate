@@ -1,24 +1,13 @@
 #include "Action.h"
 #include "Animation/AnimationRenderer.h"
 
-Action::Action(Animation* parent) {
-    mParent = parent;
-    mIsHalting = false;
-}
-
-bool Action::IsHalting() {
+bool Action::IsHalting() const {
     return mIsHalting;
-}
-
-void Action::NotifyParentActionResolved() {
-    mParent->NotifyActionResolved();
 }
 
 //-----------------------------------------------------------------------
 
-TimedAction::TimedAction(Animation* parent, int duration)
-    : Action(parent)
-{
+TimedAction::TimedAction(int duration) {
     mDuration = duration;
 }
 
@@ -30,6 +19,6 @@ void TimedAction::Execute() {
     mCurrentFrame++;
 }
 
-bool TimedAction::IsResolved() {
+bool TimedAction::IsResolved() const {
     return mCurrentFrame >= mDuration * AnimationRenderer::GetFrameRate();
 }

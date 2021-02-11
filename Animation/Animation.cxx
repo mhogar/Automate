@@ -7,10 +7,11 @@ Animation::~Animation() {
 }
 
 void Animation::Initialize() {
-    mActionItr = mActions.begin();
-    mNumActiveActions = 0;
+    mNextActionIndex = 0;
     mIsHalted = false;
+
     mChildAnimations.clear();
+    mActiveActions.clear();
 }
 
 void Animation::AddAction(Action* action) {
@@ -21,16 +22,12 @@ void Animation::AddChildAnimation(Animation* child) {
     mChildAnimations.push_back(child);
 }
 
-void Animation::NotifyActionResolved() {
-    mNumActiveActions--;
-}
-
 int Animation::GetNumActiveActions() const {
-    return mNumActiveActions;
+    return mActiveActions.size();
 }
 
 bool Animation::IsAnimationComplete() const {
-    if (mActionItr != mActions.end() || mNumActiveActions > 0) {
+    if (mNextActionIndex < mActions.size() || mActiveActions.size() > 0) {
         return false;
     }
 
@@ -43,11 +40,22 @@ bool Animation::IsAnimationComplete() const {
     return true;
 }
 
-std::list<Action*> Animation::GetNextActions() {
-    std::list<Action*> actions;
+void Animation::Update() {
+    UpdateActiveActions();
+    ResolveActiveActions();
 
-    while (mActionItr != mActions.end()) {
-        Action* action = *mActionItr;
+    for (Animation* child : mChildAnimations) {
+        child->Update();
+    }
+}
+
+void Animation::Render() {
+    
+}
+
+void Animation::UpdateActiveActions() {
+    while (mNextActionIndex < mActions.size()) {
+        Action* action = mActions[mNextActionIndex];
 
         if (mIsHalted) {
             if (!action->IsResolved()) {
@@ -55,25 +63,34 @@ std::list<Action*> Animation::GetNextActions() {
             }
             
             mIsHalted = false;
-            mActionItr++;
+            mNextActionIndex++;
             continue;
         }
 
         action->Initialize();
-        actions.push_back(action);
-        mNumActiveActions++;
+        mActiveActions.push_back(action);
 
         if (action->IsHalting()) {
             mIsHalted = true;
             break;
         }
 
-        mActionItr++;
+        mNextActionIndex++;
+    }
+}
+
+void Animation::ResolveActiveActions() {
+    std::list<Action*> resolvedActions;
+
+    for (Action* action : mActiveActions) {
+        action->Execute();
+
+        if (action->IsResolved()) {
+            resolvedActions.push_back(action);
+        }
     }
 
-    for (Animation* child : mChildAnimations) {
-        actions.splice(actions.end(), child->GetNextActions());
+    for (Action* action : resolvedActions) {
+        mActiveActions.remove(action);
     }
-
-    return actions;
 }

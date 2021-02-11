@@ -11,7 +11,7 @@ std::shared_ptr<Animation> AnimationBuilder::GetAnimation() const {
 }
 
 void AnimationBuilder::Delay(int duration) {
-    mAnimation->AddAction(new DelayAction(mAnimation.get(), duration));
+    mAnimation->AddAction(new DelayAction(duration));
 }
 
 void AnimationBuilder::Wait() {
@@ -27,9 +27,9 @@ void AnimationBuilder::RunAsync(std::shared_ptr<Animation> animation) {
 }
 
 void AnimationBuilder::Translate(int duration) {
-    mAnimation->AddAction(new TranslateAction(mAnimation.get(), duration));
+    mAnimation->AddAction(new TranslateAction(duration));
 }
 
 void AnimationBuilder::Opacity(int duration) {
-    mAnimation->AddAction(new OpacityAction(mAnimation.get(), duration));
+    mAnimation->AddAction(new OpacityAction(duration));
 }

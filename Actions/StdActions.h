@@ -6,29 +6,33 @@
 
 class DelayAction : public TimedAction {
     public:
-        DelayAction(Animation* parent, int duration);
+        DelayAction(int duration);
 };
 
 class WaitAction : public Action {
     public:
-        WaitAction(Animation* parent);
-        virtual bool IsResolved();
+        WaitAction(const Animation* parent);
+        virtual bool IsResolved() const;
+    
+    protected:
+        const Animation* mParent;
 };
 
 class RunAsyncAnimationAction : public Action {
     public:
         RunAsyncAnimationAction(Animation* parent, std::shared_ptr<Animation> animation);
         virtual void Initialize();
-        virtual bool IsResolved();
+        virtual bool IsResolved() const;
 
     protected:
+        Animation* mParent;
         std::shared_ptr<Animation> mAnimation;
 };
 
 class RunAnimationAction : public RunAsyncAnimationAction {
     public:
         RunAnimationAction(Animation* parent, std::shared_ptr<Animation> animation);
-        virtual bool IsResolved();
+        virtual bool IsResolved() const;
 };
 
 #endif

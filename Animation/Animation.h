@@ -3,6 +3,7 @@
 
 #include "Actions/Action.h"
 #include <list>
+#include <vector>
 
 class Action;
 
@@ -19,18 +20,20 @@ class Animation {
         int GetNumActiveActions() const;
         bool IsAnimationComplete() const;
 
-        void NotifyActionResolved();
-        std::list<Action*> GetNextActions();
+        void Update();
+        void Render();
 
     private:
+        void UpdateActiveActions();
+        void ResolveActiveActions();
+
         std::list<Animation*> mChildAnimations;
 
-        std::list<Action*> mActions;
-        std::list<Action*>::iterator mActionItr;
+        std::vector<Action*> mActions;
+        std::list<Action*> mActiveActions;
+        int mNextActionIndex;
 
-        int mNumActiveActions;
         bool mIsHalted;
-        
 };
 
 #endif

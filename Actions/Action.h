@@ -7,28 +7,25 @@ class Animation;
 
 class Action {
     public:
-        Action(Animation* parent);
         virtual ~Action() {}
 
         virtual void Initialize() {}
         virtual void Execute() {}
-        virtual bool IsResolved() = 0;
+        virtual bool IsResolved() const = 0;
 
-        bool IsHalting();
-        void NotifyParentActionResolved();
+        bool IsHalting() const;
 
     protected:
-        Animation* mParent;
         bool mIsHalting;
 };
 
-class TimedAction : public Action{
+class TimedAction : public Action {
     public:
-        TimedAction(Animation* parent, int duration);
+        TimedAction(int duration);
 
         virtual void Initialize();
         virtual void Execute();
-        virtual bool IsResolved();
+        virtual bool IsResolved() const;
 
     protected:
         int mCurrentFrame;

@@ -1,29 +1,27 @@
 #include "StdActions.h"
 #include <iostream>
 
-DelayAction::DelayAction(Animation* parent, int duration)
-    : TimedAction(parent, duration)
+DelayAction::DelayAction(int duration)
+    : TimedAction(duration)
 {
     mIsHalting = true;
 }
 
 //-----------------------------------------------------------------------
 
-WaitAction::WaitAction(Animation* parent)
-    : Action(parent)
-{
+WaitAction::WaitAction(const Animation* parent) {
+    parent = mParent;
     mIsHalting = true;
 }
 
-bool WaitAction::IsResolved() {
+bool WaitAction::IsResolved() const {
     return mParent->GetNumActiveActions() <= 1; // the 1 is this wait action
 }
 
 //-----------------------------------------------------------------------
 
-RunAsyncAnimationAction::RunAsyncAnimationAction(Animation* parent, std::shared_ptr<Animation> animation)
-    : Action(parent)
-{
+RunAsyncAnimationAction::RunAsyncAnimationAction(Animation* parent, std::shared_ptr<Animation> animation) {
+    mParent = parent;
     mAnimation = animation;
 }
 
@@ -32,7 +30,7 @@ void RunAsyncAnimationAction::Initialize() {
     mParent->AddChildAnimation(mAnimation.get());
 }
 
-bool RunAsyncAnimationAction::IsResolved() {
+bool RunAsyncAnimationAction::IsResolved() const {
     return true;
 }
 
@@ -44,6 +42,6 @@ RunAnimationAction::RunAnimationAction(Animation* parent, std::shared_ptr<Animat
     mIsHalting = true;
 }
 
-bool RunAnimationAction::IsResolved() {
+bool RunAnimationAction::IsResolved() const {
     return mAnimation->IsAnimationComplete();
 }
