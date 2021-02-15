@@ -1,19 +1,18 @@
 #include "PreviewHandle.h"
-#include "GraphicsImpl.h"
+#include "GraphicsFacade/GraphicsFactory.h"
 
 void PreviewHandle::PreviewAnimation(Animation& animation, int framerate) {
     animation.Initialize(framerate);
 
-    GraphicsImpl* graphicsImpl = GraphicsImplFactory::GetGraphicsImpl();
-    graphicsImpl->OpenWindow();
+    auto window = GraphicsFactory::GetInstance()->CreateWindow();
+    window->CreateWindow(600, 600, "Animation Preview");
 
-    bool running = true;
-    while (running) {
+    while (!window->ShouldClose()) {
+        window->PollEvents();
+
         animation.Update();
         animation.Render();
-
-        running = !animation.IsComplete();
     }
 
-    graphicsImpl->CloseWindow();
+    window->DestroyWindow();
 }

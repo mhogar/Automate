@@ -1,8 +1,9 @@
-cmake_minimum_required(VERSION 3.19.0)
+cmake_minimum_required(VERSION 3.16.0)
+set(CMAKE_CXX_STANDARD 17)
 
 option(Debug "Debug" OFF)
 
-if(DEBUG)
+if(Debug)
     message(STATUS "Configuring for Debug mode.")
     set(CMAKE_BUILD_TYPE Debug)
 else()
@@ -15,7 +16,7 @@ project(AUTOMATE)
 add_executable(automate main.cxx)
 
 add_subdirectory(Actions)
-add_subdirectory(SDL2Impl)
+add_subdirectory(GraphicsFacade)
 add_subdirectory(Animation)
 
 target_link_libraries(automate PRIVATE automate-core)
