@@ -1,7 +1,7 @@
 #include "VulkanWindow.h"
 
-VulkanWindow::VulkanWindow(VulkanRenderer* renderer) {
-    mRenderer = renderer;
+VulkanWindow::VulkanWindow() {
+    mRenderer = new VulkanRenderer();
     mWindow = nullptr;
 
     glfwInit();
@@ -9,6 +9,8 @@ VulkanWindow::VulkanWindow(VulkanRenderer* renderer) {
 }
 
 VulkanWindow::~VulkanWindow() {
+    delete mRenderer;
+
     DestroyWindow();
     glfwTerminate();
 }

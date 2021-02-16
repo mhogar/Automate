@@ -8,9 +8,8 @@
 class GraphicsFactory {
     public:
         static GraphicsFactory* GetInstance();
-
+        
         virtual std::shared_ptr<GraphicsWindow> CreateWindow() = 0;
-        virtual GraphicsRenderer* GetRenderer() = 0;
 
     protected:
         GraphicsFactory() {};

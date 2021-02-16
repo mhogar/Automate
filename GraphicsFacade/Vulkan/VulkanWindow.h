@@ -9,7 +9,7 @@
 
 class VulkanWindow : public GraphicsWindow {
     public:
-        VulkanWindow(VulkanRenderer* renderer);
+        VulkanWindow();
         ~VulkanWindow();
 
         virtual void CreateWindow(int width, int height, const char* title);
@@ -20,7 +20,6 @@ class VulkanWindow : public GraphicsWindow {
     
     private:
         GLFWwindow* mWindow;
-        VulkanRenderer* mRenderer;
 };
 
 #endif

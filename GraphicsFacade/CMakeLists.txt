@@ -1,4 +1,4 @@
-add_library(graphics GraphicsFactory.cxx)
+add_library(graphics GraphicsFactory.cxx GraphicsWindow.cxx)
 
 add_subdirectory(Vulkan)
 
