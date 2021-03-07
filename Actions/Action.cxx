@@ -7,7 +7,7 @@ bool Action::IsHalting() const {
 
 //-----------------------------------------------------------------------
 
-TimedAction::TimedAction(int duration) {
+TimedAction::TimedAction(float duration) {
     mDuration = duration;
 }
 

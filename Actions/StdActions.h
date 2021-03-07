@@ -2,20 +2,21 @@
 #define ACTIONS_STD_ACTION_H
 
 #include "Action.h"
+#include "Actors/RootActor.h"
 #include <memory>
 
 class DelayAction : public TimedAction {
     public:
-        DelayAction(int duration);
+        DelayAction(float duration);
 };
 
 class WaitAction : public Action {
     public:
-        WaitAction(const Animation* parent);
+        WaitAction(const RootActor* parent);
         virtual bool IsResolved() const;
     
     protected:
-        const Animation* mParent;
+        const RootActor* mParent;
 };
 
 class RunAsyncAnimationAction : public Action {

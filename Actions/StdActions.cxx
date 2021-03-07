@@ -1,7 +1,7 @@
 #include "StdActions.h"
 #include <iostream>
 
-DelayAction::DelayAction(int duration)
+DelayAction::DelayAction(float duration)
     : TimedAction(duration)
 {
     mIsHalting = true;
@@ -9,7 +9,7 @@ DelayAction::DelayAction(int duration)
 
 //-----------------------------------------------------------------------
 
-WaitAction::WaitAction(const Animation* parent) {
+WaitAction::WaitAction(const RootActor* parent) {
     parent = mParent;
     mIsHalting = true;
 }

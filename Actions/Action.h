@@ -21,15 +21,15 @@ class Action {
 
 class TimedAction : public Action {
     public:
-        TimedAction(int duration);
+        TimedAction(float duration);
 
         virtual void Initialize();
         virtual void Execute();
         virtual bool IsResolved() const;
 
     protected:
-        int mCurrentFrame;
-        int mDuration;
+        float mCurrentFrame;
+        float mDuration;
 };
 
 #endif
