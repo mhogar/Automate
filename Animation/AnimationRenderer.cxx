@@ -1,11 +1,8 @@
 #include "AnimationRenderer.h"
-#include "SDLFacade.h"
 
-std::list<Action*> AnimationRenderer::mActiveActions;
 int AnimationRenderer::mFrameRate = 30;
 
 void AnimationRenderer::Initialize(int framerate) {
-    //SDLFacade::Initialize();
     ConfigureFrameRate(framerate);
 }
 
@@ -17,15 +14,11 @@ int AnimationRenderer::GetFrameRate() {
     return mFrameRate;
 }
 
-void AnimationRenderer::RenderAnimation(Animation& animation) {
-    animation.Initialize();
+void AnimationRenderer::RenderAnimation(RootActor& root) {
+    root.Initialize();
 
-    //SDLFacade::OpenWindow();
-
-    while (!animation.IsAnimationComplete()) {
-        animation.Update();
-        animation.Render();
+    while (!root.IsAnimationComplete()) {
+        root.Update();
+        root.Render();
     }
-
-    //SDLFacade::CloseWindow();
 }

@@ -2,12 +2,8 @@
 #define ACTORS_ROOT_ACTOR_H
 
 #include "Actions/Action.h"
-#include "Actor.h"
 #include <list>
 #include <vector>
-
-class Action;
-class Actor;
 
 class RootActor {
     public:
@@ -15,13 +11,15 @@ class RootActor {
 
         void Initialize();
 
-        void AddChildActor(Actor* child);
+        void AddChildActor(RootActor* child);
 
         int GetNumActiveActions() const;
         bool IsAnimationComplete() const;
 
         void Update();
         void Render();
+
+        virtual void RenderActor() = 0;
 
         void Delay(float duration);
         void Wait();
@@ -33,7 +31,7 @@ class RootActor {
         void UpdateActiveActions();
         void ResolveActiveActions();
 
-        std::list<Actor*> mChildActors;
+        std::list<RootActor*> mChildActors;
 
         std::list<Action*> mActiveActions;
         int mNextActionIndex;

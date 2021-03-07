@@ -1,10 +1,6 @@
 #ifndef ACTIONS_ACTION_H
 #define ACTIONS_ACTION_H
 
-#include "Animation/Animation.h"
-
-class Animation;
-
 class Action {
     public:
         virtual ~Action() {}

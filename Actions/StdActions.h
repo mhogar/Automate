@@ -19,21 +19,21 @@ class WaitAction : public Action {
         const RootActor* mParent;
 };
 
-class RunAsyncAnimationAction : public Action {
-    public:
-        RunAsyncAnimationAction(Animation* parent, std::shared_ptr<Animation> animation);
-        virtual void Initialize();
-        virtual bool IsResolved() const;
+// class RunAsyncAnimationAction : public Action {
+//     public:
+//         RunAsyncAnimationAction(Animation* parent, std::shared_ptr<Animation> animation);
+//         virtual void Initialize();
+//         virtual bool IsResolved() const;
 
-    protected:
-        Animation* mParent;
-        std::shared_ptr<Animation> mAnimation;
-};
+//     protected:
+//         Animation* mParent;
+//         std::shared_ptr<Animation> mAnimation;
+// };
 
-class RunAnimationAction : public RunAsyncAnimationAction {
-    public:
-        RunAnimationAction(Animation* parent, std::shared_ptr<Animation> animation);
-        virtual bool IsResolved() const;
-};
+// class RunAnimationAction : public RunAsyncAnimationAction {
+//     public:
+//         RunAnimationAction(Animation* parent, std::shared_ptr<Animation> animation);
+//         virtual bool IsResolved() const;
+// };
 
 #endif

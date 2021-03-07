@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19.0)
+cmake_minimum_required(VERSION 3.16.0)
 
 option(Debug "Debug" OFF)
 
@@ -15,6 +15,7 @@ project(AUTOMATE)
 add_executable(automate main.cxx)
 
 add_subdirectory(Actions)
+add_subdirectory(Actors)
 add_subdirectory(Animation)
 
 target_link_libraries(automate PRIVATE animation)

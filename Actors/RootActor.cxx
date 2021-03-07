@@ -15,7 +15,7 @@ void RootActor::Initialize() {
     mActiveActions.clear();
 }
 
-void RootActor::AddChildActor(Actor* child) {
+void RootActor::AddChildActor(RootActor* child) {
     mChildActors.push_back(child);
 }
 
@@ -28,7 +28,7 @@ bool RootActor::IsAnimationComplete() const {
         return false;
     }
 
-    for (Actor* child : mChildActors) {
+    for (RootActor* child : mChildActors) {
         if (!child->IsAnimationComplete()) {
             return false;
         }
@@ -41,7 +41,7 @@ void RootActor::Update() {
     UpdateActiveActions();
     ResolveActiveActions();
 
-    for (Actor* child : mChildActors) {
+    for (RootActor* child : mChildActors) {
         child->Update();
     }
 }
@@ -91,7 +91,6 @@ void RootActor::ResolveActiveActions() {
         mActiveActions.remove(action);
     }
 }
-
 
 void RootActor::Delay(float duration) {
     mActions.push_back(new DelayAction(duration));

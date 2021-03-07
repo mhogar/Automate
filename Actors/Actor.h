@@ -11,8 +11,6 @@ class Actor : public RootActor {
         
         virtual ~Actor() {};
 
-        virtual void RenderActor() = 0;
-
         void Translate(float duration);
         void Opacity(float duration);
 
