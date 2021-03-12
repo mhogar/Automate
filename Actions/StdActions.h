@@ -12,11 +12,11 @@ class DelayAction : public TimedAction {
 
 class WaitAction : public Action {
     public:
-        WaitAction(const RootActor* parent);
+        WaitAction(const Timeline* timeline);
         virtual bool IsResolved() const;
     
     protected:
-        const RootActor* mParent;
+        const Timeline* mTimeline;
 };
 
 // class RunAsyncAnimationAction : public Action {

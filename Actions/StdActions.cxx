@@ -9,13 +9,13 @@ DelayAction::DelayAction(float duration)
 
 //-----------------------------------------------------------------------
 
-WaitAction::WaitAction(const RootActor* parent) {
-    mParent = parent;
+WaitAction::WaitAction(const Timeline* timeline) {
+    mTimeline = timeline;
     mIsHalting = true;
 }
 
 bool WaitAction::IsResolved() const {
-    return mParent->GetNumActiveActions() <= 1; // the 1 is this wait action
+    return mTimeline->GetNumActiveActions() <= 1; // the 1 is this wait action
 }
 
 //-----------------------------------------------------------------------

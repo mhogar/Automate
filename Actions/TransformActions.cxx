@@ -1,10 +1,10 @@
 #include "TransformActions.h"
 #include <iostream>
 
-TranslateAction::TranslateAction(Actor* actor, float duration)
+TranslateAction::TranslateAction(ActorData* data, float duration)
     : TimedAction(duration)
 {
-    mActor = actor;
+    mData = data;
 }
 
 void TranslateAction::Execute() {
@@ -13,10 +13,10 @@ void TranslateAction::Execute() {
     std::cout << "Translate " << mCurrentFrame << std::endl;
 }
 
-OpacityAction::OpacityAction(Actor* actor, float duration)
+OpacityAction::OpacityAction(ActorData* data, float duration)
     : TimedAction(duration)
 {
-    mActor = actor;
+    mData = data;
 }
 
 void OpacityAction::Execute() {

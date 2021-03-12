@@ -9,7 +9,8 @@ class Actor : public RootActor {
         Actor(RootActor* parent, ActorData& data);
         virtual ~Actor();
 
-        ActorData* GetActorData();
+        ActorData* GetActorData() const;
+        RootActor* GetParent() const;
 
     protected:
         Actor(RootActor* parent, ActorData* data);

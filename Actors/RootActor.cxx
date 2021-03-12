@@ -6,7 +6,15 @@ RootActor::~RootActor() {
     }
 }
 
-void RootActor::AddChildActor(RootActor* child) {
+const Timeline* RootActor::GetTimelineRef() const {
+    return &mTimeline;
+};
+
+void RootActor::AddAction(Action* action) {
+    mTimeline.AddAction(action);
+}
+
+void RootActor::AddChild(RootActor* child) {
     mChildActors.push_back(child);
 }
 

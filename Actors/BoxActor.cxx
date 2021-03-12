@@ -6,6 +6,6 @@ BoxActor::BoxActor(RootActor* parent, BoxData& data) : BoxActor(parent, new BoxD
 BoxActor::BoxActor(RootActor* parent, BoxData* data) : Actor(parent, data) {
 }
 
-BoxData* BoxActor::GetBoxData() {
+BoxData* BoxActor::GetBoxData() const {
     return static_cast<BoxData*>(mData);
 }

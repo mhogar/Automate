@@ -9,7 +9,7 @@ class BoxActor : public Actor {
         BoxActor(RootActor* parent, BoxData& data);
         virtual ~BoxActor() {};
 
-        BoxData* GetBoxData();
+        BoxData* GetBoxData() const;
 
     protected:
         BoxActor(RootActor* parent, BoxData* data);

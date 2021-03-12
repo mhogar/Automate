@@ -12,6 +12,10 @@ Actor::~Actor() {
     delete mData;
 }
 
-ActorData* Actor::GetActorData() {
+ActorData* Actor::GetActorData() const {
     return mData;
+}
+
+RootActor* Actor::GetParent() const {
+    return mParent;
 }

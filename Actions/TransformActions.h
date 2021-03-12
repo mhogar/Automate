@@ -2,24 +2,24 @@
 #define ACTIONS_TRANSFORM_ACTION_H
 
 #include "Action.h"
-#include "Actors/Actor.h"
+#include "Actors/ActorData.hxx"
 
 class TranslateAction : public TimedAction {
     public:
-        TranslateAction(Actor* actor, float duration);
+        TranslateAction(ActorData* data, float duration);
         virtual void Execute();
 
     private:
-        Actor* mActor;
+        ActorData* mData;
 };
 
 class OpacityAction : public TimedAction {
     public:
-        OpacityAction(Actor* actor, float duration);
+        OpacityAction(ActorData* data, float duration);
         virtual void Execute();
     
     private:
-        Actor* mActor;
+        ActorData* mData;
 };
 
 #endif

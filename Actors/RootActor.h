@@ -9,12 +9,13 @@ class RootActor {
     public:
         virtual ~RootActor() {};
 
-        void AddChildActor(RootActor* child);
+        const Timeline* GetTimelineRef() const;
+
+        void AddAction(Action* action);
+        void AddChild(RootActor* child);
 
         void Update();
         void Render();
-
-        //virtual void RenderActor() = 0;
 
     protected:
         Timeline mTimeline;
