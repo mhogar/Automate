@@ -2,17 +2,17 @@
 #define ACTORS_BOX_ACTOR_H
 
 #include "Actor.h"
+#include "BoxData.hxx"
 
 class BoxActor : public Actor {
     public:
-        BoxActor();
-        BoxActor(float posX, float posY, float rot, float scaleX, float scaleY, float opacity, const char* colour);
-
+        BoxActor(RootActor* parent, BoxData& data);
         virtual ~BoxActor() {};
 
-        virtual void RenderActor();
+        BoxData* GetBoxData();
 
-        const char* mColour;
+    protected:
+        BoxActor(RootActor* parent, BoxData* data);
 };
 
 #endif

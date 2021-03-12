@@ -1,25 +1,17 @@
 #include "Actor.h"
-#include "Actions/TransformActions.h"
 
-Actor::Actor() : Actor(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f) {
+Actor::Actor(RootActor* parent, ActorData& data) : Actor(parent, new ActorData(data)) {
 }
 
-Actor::Actor(float posX, float posY, float rot, float scaleX, float scaleY, float opacity) {
-    mPosition.x = posX;
-    mPosition.y = posY;
-    
-    mRotation = rot;
-
-    mScale.x = scaleX;
-    mScale.y = scaleY;
-
-    mOpacity = opacity;
+Actor::Actor(RootActor* parent, ActorData* data) {
+    mParent = parent;
+    mData = data;
 }
 
-void Actor::Translate(float duration) {
-    mActions.push_back(new TranslateAction(this, duration));
+Actor::~Actor() {
+    delete mData;
 }
 
-void Actor::Opacity(float duration) {
-    mActions.push_back(new OpacityAction(this, duration));
+ActorData* Actor::GetActorData() {
+    return mData;
 }

@@ -1,14 +1,11 @@
 #include "BoxActor.h"
 
-BoxActor::BoxActor() {
-    mColour = "red";
+BoxActor::BoxActor(RootActor* parent, BoxData& data) : BoxActor(parent, new BoxData(data)) {
 }
 
-BoxActor::BoxActor(float posX, float posY, float rot, float scaleX, float scaleY, float opacity, const char* colour)
-    : Actor(posX, posY, rot, scaleX, scaleY, opacity)
-{
-    mColour = colour;
+BoxActor::BoxActor(RootActor* parent, BoxData* data) : Actor(parent, data) {
 }
 
-void BoxActor::RenderActor() {
+BoxData* BoxActor::GetBoxData() {
+    return static_cast<BoxData*>(mData);
 }

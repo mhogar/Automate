@@ -2,22 +2,20 @@
 #define ACTORS_ACTOR_H
 
 #include "RootActor.h"
-#include <glm/vec2.hpp>
+#include "ActorData.hxx"
 
 class Actor : public RootActor {
     public:
-        Actor();
-        Actor(float posX, float posY, float rot, float scaleX, float scaleY, float opacity);
-        
-        virtual ~Actor() {};
+        Actor(RootActor* parent, ActorData& data);
+        virtual ~Actor();
 
-        void Translate(float duration);
-        void Opacity(float duration);
+        ActorData* GetActorData();
 
-        glm::vec2 mPosition;
-        float mRotation;
-        glm::vec2 mScale;
-        float mOpacity;
+    protected:
+        Actor(RootActor* parent, ActorData* data);
+
+        RootActor* mParent;
+        ActorData* mData;
 };
 
 #endif

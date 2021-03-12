@@ -1,42 +1,24 @@
 #ifndef ACTORS_ROOT_ACTOR_H
 #define ACTORS_ROOT_ACTOR_H
 
-#include "Actions/Action.h"
+#include "Actions/Timeline.h"
 #include <list>
 #include <vector>
 
 class RootActor {
     public:
-        ~RootActor();
-
-        void Initialize();
+        virtual ~RootActor() {};
 
         void AddChildActor(RootActor* child);
-
-        int GetNumActiveActions() const;
-        bool IsAnimationComplete() const;
 
         void Update();
         void Render();
 
-        virtual void RenderActor() = 0;
-
-        void Delay(float duration);
-        void Wait();
+        //virtual void RenderActor() = 0;
 
     protected:
-        std::vector<Action*> mActions;
-
-    private:
-        void UpdateActiveActions();
-        void ResolveActiveActions();
-
+        Timeline mTimeline;
         std::list<RootActor*> mChildActors;
-
-        std::list<Action*> mActiveActions;
-        int mNextActionIndex;
-
-        bool mIsHalted;
 };
 
 #endif
