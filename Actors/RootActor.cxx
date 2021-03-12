@@ -20,6 +20,10 @@ void RootActor::AddChild(RootActor* child) {
 
 void RootActor::Update() {
     mTimeline.Update();
+
+    for (RootActor* child : mChildActors) {
+        child->Update();
+    }
 }
 
 void RootActor::Render() {

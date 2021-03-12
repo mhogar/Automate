@@ -6,11 +6,9 @@
 struct BoxData : public ActorData {
     const char* mColour;
 
-    BoxData();
+    BoxData() {
+        mColour = "red";
+    }
 };
-
-BoxData::BoxData() {
-    mColour = "red";
-}
 
 #endif

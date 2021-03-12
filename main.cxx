@@ -1,20 +1,22 @@
-#include "Animation/AnimationRenderer.h"
-#include "Actors/BoxActor.h"
+#include "Animation/Animation.h"
+#include "Animation/ActorAnimator.h"
 
-void FadeIn(Actor* actor);
+void FadeIn(ActorAnimator& actor);
 
 int main() {
-    //RootActor root;
+    Animation animation;
+    RootAnimator root = animation.GetRoot();
     
-    BoxActor box;
-    FadeIn(&box);
+    BoxData box;
+    ActorAnimator boxAnim = root.AddBoxChild(box);
 
-    AnimationRenderer::Initialize(10);
-    AnimationRenderer::RenderAnimation(box);
+    FadeIn(boxAnim);
+
+    animation.Render();
 }
 
-void FadeIn(Actor* actor) {
-    actor->Translate(1.0f);
-    actor->Wait();
-    actor->Opacity(1.0f);
+void FadeIn(ActorAnimator& actor) {
+    actor.Translate(1.0f);
+    actor.Wait();
+    actor.Opacity(1.0f);
 }

@@ -9,19 +9,17 @@ struct ActorData {
     glm::vec2 Scale;
     float Opacity;
 
-    ActorData();
+    ActorData() {
+        Position.x = 0.0f;
+        Position.y = 0.0f;
+
+        Rotation = 0.0f;
+
+        Scale.x = 1.0f;
+        Scale.y = 1.0f;
+
+        Opacity = 1.0f;
+    }
 };
-
-ActorData::ActorData() {
-    Position.x = 0.0f;
-    Position.y = 0.0f;
-
-    Rotation = 0.0f;
-
-    Scale.x = 1.0f;
-    Scale.y = 1.0f;
-
-    Opacity = 1.0f;
-}
 
 #endif

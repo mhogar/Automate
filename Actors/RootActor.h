@@ -7,7 +7,7 @@
 
 class RootActor {
     public:
-        virtual ~RootActor() {};
+        virtual ~RootActor();
 
         const Timeline* GetTimelineRef() const;
 

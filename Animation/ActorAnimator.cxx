@@ -1,5 +1,5 @@
 #include "ActorAnimator.h"
-#include "TransformActions.h"
+#include "Actions/TransformActions.h"
 
 ActorAnimator::ActorAnimator(Actor* actor) : RootAnimator(actor) {
 }
