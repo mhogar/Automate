@@ -10,7 +10,7 @@ else()
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-project(AUTOMATE)
+project(automate VERSION 0.1.0)
 
 add_executable(automate main.cxx)
 

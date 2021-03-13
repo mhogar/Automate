@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Actors/Actor.h"
-#include "Actors/ActorData.hxx"
-#include "Actors/BoxData.hxx"
+#include "Actors/ActorData.h"
+#include "Actors/BoxData.h"
 
 class ActorAnimator {
     public:

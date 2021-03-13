@@ -1,20 +1,19 @@
 #include "Actor.h"
 #include <glm/ext/matrix_transform.hpp>
 
-Actor::Actor() : Actor(nullptr, new ActorData()) {
+Actor::Actor() : Actor(nullptr, ActorData()) {
 }
 
-Actor::Actor(Actor* parent, ActorData& data) : Actor(parent, new ActorData(data)) {
-}
-
-Actor::Actor(Actor* parent, ActorData* data) {
+Actor::Actor(Actor* parent, const ActorData& data) {
     mParent = parent;
-    mData = data;
+
+    Position = glm::vec3(data.PositionX, data.PositionY, data.PositionZ);
+    Rotation = glm::vec3(data.RotationX, data.RotationY, data.RotationZ);
+    Scale = glm::vec3(data.ScaleX, data.ScaleY, data.ScaleZ);
+    Opacity = data.Opacity;
 }
 
 Actor::~Actor() {
-    delete mData;
-
     for (Actor* child : mChildActors) {
         delete child;
     }
@@ -63,25 +62,21 @@ const Timeline* Actor::GetTimelineRef() const {
     return &mTimeline;
 };
 
-ActorData* Actor::GetActorData() const {
-    return mData;
-}
-
 glm::mat4 Actor::GetMatrix() const {
     return mMatrix;
 }
 
 void Actor::BuildMatrix(const glm::mat4& parentMat) {
-    mMatrix = glm::scale(parentMat, mData->Scale);
-    if (mData->Rotation.x != 0) {
-        mMatrix = glm::rotate(mMatrix, glm::radians(mData->Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    mMatrix = glm::scale(parentMat, Scale);
+    if (Rotation.x != 0) {
+        mMatrix = glm::rotate(mMatrix, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
     }
-    if (mData->Rotation.y != 0) {
-        mMatrix = glm::rotate(mMatrix, glm::radians(mData->Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    if (Rotation.y != 0) {
+        mMatrix = glm::rotate(mMatrix, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
     }
-    if (mData->Rotation.z != 0) {
-        mMatrix = glm::rotate(mMatrix, glm::radians(mData->Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+    if (Rotation.z != 0) {
+        mMatrix = glm::rotate(mMatrix, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
     }
-    mMatrix = glm::translate(mMatrix, mData->Position);
-    mMatrix[3][3] = mData->Opacity;
+    mMatrix = glm::translate(mMatrix, Position);
+    mMatrix[3][3] = Opacity;
 }

@@ -16,19 +16,19 @@ void ActorAnimator::Wait() {
 }
 
 void ActorAnimator::Translate(float targetX, float targetY, float duration) {
-    mActor->AddAction(new TranslateAction(&(mActor->GetActorData()->Position), glm::vec3(targetX, targetY, 0.0f), duration));
+    mActor->AddAction(new TranslateAction(&mActor->Position, glm::vec3(targetX, targetY, 0.0f), duration));
 }
 
 void ActorAnimator::Rotate(float targetAngle, float duration) {
-    mActor->AddAction(new RotateAction(&(mActor->GetActorData()->Rotation), glm::vec3(0.0f, 0.0f, targetAngle), duration));
+    mActor->AddAction(new RotateAction(&mActor->Rotation, glm::vec3(0.0f, 0.0f, targetAngle), duration));
 }
 
 void ActorAnimator::Scale(float targetScaleX, float targetScaleY, float duration) {
-    mActor->AddAction(new ScaleAction(&(mActor->GetActorData()->Scale), glm::vec3(targetScaleX, targetScaleY, 1.0f), duration));
+    mActor->AddAction(new ScaleAction(&mActor->Scale, glm::vec3(targetScaleX, targetScaleY, 1.0f), duration));
 }
 
 void ActorAnimator::Opacity(float targetOpacity, float duration) {
-    mActor->AddAction(new OpacityAction(&(mActor->GetActorData()->Opacity), targetOpacity, duration));
+    mActor->AddAction(new OpacityAction(&mActor->Opacity, targetOpacity, duration));
 }
 
 ActorAnimator ActorAnimator::AddActorChild(ActorData& data) {

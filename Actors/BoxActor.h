@@ -1,16 +1,15 @@
 #pragma once
 
 #include "Actor.h"
-#include "BoxData.hxx"
+#include "BoxData.h"
 
 class BoxActor : public Actor {
     public:
         BoxActor(Actor* parent, BoxData& data);
         virtual ~BoxActor() {};
 
-        BoxData* GetBoxData() const;
+        const char* Colour;
 
     protected:
-        BoxActor(Actor* parent, BoxData* data);
         virtual void RenderActor(Renderer* renderer);
 };

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Action.h"
-#include "Actors/ActorData.hxx"
+#include "Actors/ActorData.h"
+#include <glm/vec3.hpp>
 
 template <class T>
 class TransformAction : public AnimateAction {

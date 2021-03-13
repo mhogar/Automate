@@ -4,11 +4,9 @@ LogRenderer::LogRenderer(std::ostream& stream)
     : mStream(stream) {}
 
 void LogRenderer::Render(const BoxActor& box) {
-    BoxData data = *box.GetBoxData();
-
     mStream << "Render box: ";
-    mStream << "(" << data.Position.x << ", " << data.Position.y << ", " << data.Position.z << ") ";
-    mStream << "(" << data.Rotation.x << ", " << data.Rotation.y << ", " << data.Rotation.z << ") ";
-    mStream << "(" << data.Scale.x << ", " << data.Scale.y << ", " << data.Scale.z <<") ";
-    mStream << data.Opacity * 100 << "%" << std::endl;
+    mStream << "(" << box.Position.x << ", " << box.Position.y << ", " << box.Position.z << ") ";
+    mStream << "(" << box.Rotation.x << ", " << box.Rotation.y << ", " << box.Rotation.z << ") ";
+    mStream << "(" << box.Scale.x << ", " << box.Scale.y << ", " << box.Scale.z <<") ";
+    mStream << box.Opacity * 100 << "%" << std::endl;
 }
