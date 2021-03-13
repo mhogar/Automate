@@ -21,12 +21,22 @@ class TransformAction : public AnimateAction {
         T* mData;
 };
 
-class TranslateAction : public TransformAction<glm::vec2> {
+class TranslateAction : public TransformAction<glm::vec3> {
     public:
-        TranslateAction(glm::vec2* data, glm::vec2 endPos, float duration);
+        TranslateAction(glm::vec3* data, glm::vec3 endValue, float duration);
+};
+
+class RotateAction : public TransformAction<glm::vec3> {
+    public:
+        RotateAction(glm::vec3* data, glm::vec3 endValue, float duration);
+};
+
+class ScaleAction : public TransformAction<glm::vec3> {
+    public:
+        ScaleAction(glm::vec3* data, glm::vec3 endValue, float duration);
 };
 
 class OpacityAction : public TransformAction<float> {
     public:
-        OpacityAction(float* data, float endOpacity, float duration);
+        OpacityAction(float* data, float endValue, float duration);
 };

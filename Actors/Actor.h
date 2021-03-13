@@ -3,7 +3,9 @@
 #include "Actions/Timeline.h"
 #include "ActorData.hxx"
 #include <list>
-#include <glm/mat3x3.hpp>
+#include <glm/mat4x4.hpp>
+
+class Renderer;
 
 class Actor {
     public:
@@ -14,23 +16,25 @@ class Actor {
         void AddAction(ControlAction* action);
         void AddAction(AnimateAction* action);
         void AddChild(Actor* child);
-        
-        void BuildMatrix();
 
         void Update(float dt);
-        void Render();
+        void Render(Renderer* renderer);
+        void Render(Renderer* renderer, const glm::mat4& parentMat);
 
         const Timeline* GetTimelineRef() const;
         ActorData* GetActorData() const;
-        glm::mat3x3 GetMatrix() const;
+        glm::mat4 GetMatrix() const;
 
     protected:
         Actor(Actor* parent, ActorData* data);
+
+        virtual void RenderActor(Renderer* renderer) {};
+        void BuildMatrix(const glm::mat4& parentMat);
 
         Actor* mParent;
         std::list<Actor*> mChildActors;
         
         Timeline mTimeline;
         ActorData* mData;
-        glm::mat3x3 mMatrix;
+        glm::mat4 mMatrix;
 };

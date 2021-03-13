@@ -15,9 +15,10 @@ project(AUTOMATE)
 add_executable(automate main.cxx)
 
 add_subdirectory(Actions)
+add_subdirectory(Renderer)
 add_subdirectory(Actors)
 add_subdirectory(Animation)
 
-target_link_libraries(automate PRIVATE animation)
+target_link_libraries(automate PRIVATE animation actors actions renderer)
 
 target_include_directories(automate PUBLIC "${PROJECT_SOURCE_DIR}")

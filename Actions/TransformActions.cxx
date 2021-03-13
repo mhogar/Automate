@@ -22,8 +22,6 @@ void TransformAction<T>::Execute(float dt) {
     }
 
     *mData = mStartValue + (mTimer / mDuration) * (mEndValue - mStartValue);
-
-    std::cout << "Transform " << mTimer << std::endl;
 }
 
 template <class T>
@@ -33,8 +31,14 @@ bool TransformAction<T>::IsResolved() const {
 
 //--------------------------------------------------------------------------------
 
-TranslateAction::TranslateAction(glm::vec2* data, glm::vec2 endPos, float duration)
-    : TransformAction(data, endPos, duration) {}
+TranslateAction::TranslateAction(glm::vec3* data, glm::vec3 endValue, float duration)
+    : TransformAction(data, endValue, duration) {}
 
-OpacityAction::OpacityAction(float* data, float endOpacity, float duration)
-    : TransformAction(data, endOpacity, duration) {}
+RotateAction::RotateAction(glm::vec3* data, glm::vec3 endValue, float duration)
+    : TransformAction(data, endValue, duration) {}
+
+ScaleAction::ScaleAction(glm::vec3* data, glm::vec3 endValue, float duration)
+    : TransformAction(data, endValue, duration) {}
+
+OpacityAction::OpacityAction(float* data, float endValue, float duration)
+    : TransformAction(data, endValue, duration) {}

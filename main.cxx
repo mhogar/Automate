@@ -8,14 +8,15 @@ int main() {
     
     CreateAnimation(root);
 
-    animation.Render(10);
+    animation.LogRender(10);
 }
 
 void CreateAnimation(ActorAnimator& root) {
     BoxData boxData;
     ActorAnimator box = root.AddBoxChild(boxData);
 
-    box.Translate(50, 50, 1.0f);
-    root.Delay(0.5f);
-    box.Opacity(0.1f, 1.0f);
+    box.Translate(50, 50, 1);
+    box.Rotate(45, 1);
+    box.Scale(50, 50, 1);
+    box.Opacity(0, 1);
 }

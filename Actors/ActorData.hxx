@@ -1,22 +1,17 @@
 #pragma once
 
-#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
 
 struct ActorData {
-    glm::vec2 Position;
-    float Rotation;
-    glm::vec2 Scale;
+    glm::vec3 Position;
+    glm::vec3 Rotation;
+    glm::vec3 Scale;
     float Opacity;
 
     ActorData() {
-        Position.x = 0.0f;
-        Position.y = 0.0f;
-
-        Rotation = 0.0f;
-
-        Scale.x = 1.0f;
-        Scale.y = 1.0f;
-
+        Position = glm::vec3(0.0f);
+        Rotation = glm::vec3(0.0f);
+        Scale = glm::vec3(1.0f);
         Opacity = 1.0f;
     }
 };

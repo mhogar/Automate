@@ -5,7 +5,7 @@
 class Animation {
     public:
         ActorAnimator GetRoot();
-        void Render(float framerate);
+        void LogRender(float framerate);
 
     private:
         Actor mRoot;

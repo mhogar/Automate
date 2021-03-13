@@ -13,6 +13,8 @@ class ActorAnimator {
         void Wait();
 
         void Translate(float targetX, float targetY, float duration);
+        void Rotate(float targetAngle, float duration);
+        void Scale(float targetScaleX, float targetScaleY, float duration);
         void Opacity(float targetOpacity, float duration);
 
         ActorAnimator AddActorChild(ActorData& data);

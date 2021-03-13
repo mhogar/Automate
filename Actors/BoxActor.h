@@ -12,4 +12,5 @@ class BoxActor : public Actor {
 
     protected:
         BoxActor(Actor* parent, BoxData* data);
+        virtual void RenderActor(Renderer* renderer);
 };

@@ -16,11 +16,15 @@ void ActorAnimator::Wait() {
 }
 
 void ActorAnimator::Translate(float targetX, float targetY, float duration) {
-    glm::vec2 targetPos;
-    targetPos.x = targetX;
-    targetPos.y = targetY;
+    mActor->AddAction(new TranslateAction(&(mActor->GetActorData()->Position), glm::vec3(targetX, targetY, 0.0f), duration));
+}
 
-    mActor->AddAction(new TranslateAction(&(mActor->GetActorData()->Position), targetPos, duration)); //TODO: Add new add action method that operates on parent
+void ActorAnimator::Rotate(float targetAngle, float duration) {
+    mActor->AddAction(new RotateAction(&(mActor->GetActorData()->Rotation), glm::vec3(0.0f, 0.0f, targetAngle), duration));
+}
+
+void ActorAnimator::Scale(float targetScaleX, float targetScaleY, float duration) {
+    mActor->AddAction(new ScaleAction(&(mActor->GetActorData()->Scale), glm::vec3(targetScaleX, targetScaleY, 1.0f), duration));
 }
 
 void ActorAnimator::Opacity(float targetOpacity, float duration) {
