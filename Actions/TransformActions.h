@@ -1,5 +1,4 @@
-#ifndef ACTIONS_TRANSFORM_ACTION_H
-#define ACTIONS_TRANSFORM_ACTION_H
+#pragma once
 
 #include "Action.h"
 #include "Actors/ActorData.hxx"
@@ -31,5 +30,3 @@ class OpacityAction : public TransformAction<float> {
     public:
         OpacityAction(float* data, float endOpacity, float duration);
 };
-
-#endif

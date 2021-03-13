@@ -1,5 +1,4 @@
-#ifndef ACTIONS_TIMELINE_H
-#define ACTIONS_TIMELINE_H
+#pragma once
 
 #include "Action.h"
 #include <vector>
@@ -32,5 +31,3 @@ class Timeline {
 
         bool mIsHalted;
 };
-
-#endif

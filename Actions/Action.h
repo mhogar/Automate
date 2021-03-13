@@ -1,5 +1,4 @@
-#ifndef ACTIONS_ACTION_H
-#define ACTIONS_ACTION_H
+#pragma once
 
 class Action {
     public:
@@ -24,5 +23,3 @@ class AnimateAction : public Action {
     public:
         virtual ~AnimateAction() {}
 };
-
-#endif

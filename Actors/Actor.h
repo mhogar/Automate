@@ -1,5 +1,4 @@
-#ifndef ACTORS_ACTOR_H
-#define ACTORS_ACTOR_H
+#pragma once
 
 #include "Actions/Timeline.h"
 #include "ActorData.hxx"
@@ -35,5 +34,3 @@ class Actor {
         ActorData* mData;
         glm::mat3x3 mMatrix;
 };
-
-#endif

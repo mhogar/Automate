@@ -1,5 +1,4 @@
-#ifndef ACTIONS_STD_ACTION_H
-#define ACTIONS_STD_ACTION_H
+#pragma once
 
 #include "Action.h"
 #include "Timeline.h"
@@ -42,5 +41,3 @@ class WaitAction : public ControlAction {
 //         RunAnimationAction(Animation* parent, std::shared_ptr<Animation> animation);
 //         virtual bool IsResolved() const;
 // };
-
-#endif

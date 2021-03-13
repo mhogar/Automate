@@ -1,5 +1,4 @@
-#ifndef ACTORS_BOX_ACTOR_H
-#define ACTORS_BOX_ACTOR_H
+#pragma once
 
 #include "Actor.h"
 #include "BoxData.hxx"
@@ -14,5 +13,3 @@ class BoxActor : public Actor {
     protected:
         BoxActor(Actor* parent, BoxData* data);
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef ANIMATION_ANIMATION_H
-#define ANIMATION_ANIMATION_H
+#pragma once
 
 #include "ActorAnimator.h"
 
@@ -11,5 +10,3 @@ class Animation {
     private:
         Actor mRoot;
 };
-
-#endif

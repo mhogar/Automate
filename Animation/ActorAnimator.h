@@ -1,5 +1,4 @@
-#ifndef ANIMATION_ACTOR_ANIMATOR_H
-#define ANIMATION_ACTOR_ANIMATOR_H
+#pragma once
 
 #include "Actors/Actor.h"
 #include "Actors/ActorData.hxx"
@@ -22,5 +21,3 @@ class ActorAnimator {
     protected:
         Actor* mActor;
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef ACTORS_ACTOR_DATA_H
-#define ACTORS_ACTOR_DATA_H
+#pragma once
 
 #include <glm/vec2.hpp>
 
@@ -21,5 +20,3 @@ struct ActorData {
         Opacity = 1.0f;
     }
 };
-
-#endif

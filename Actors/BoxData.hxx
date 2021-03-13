@@ -1,5 +1,4 @@
-#ifndef ACTORS_BOX_DATA_H
-#define ACTORS_BOX_DATA_H
+#pragma once
 
 #include "ActorData.hxx"
 
@@ -10,5 +9,3 @@ struct BoxData : public ActorData {
         mColour = "red";
     }
 };
-
-#endif
