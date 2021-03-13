@@ -6,7 +6,7 @@ class Action {
         virtual ~Action() {}
 
         virtual void Initialize() {}
-        virtual void Execute() {}
+        virtual void Execute(float dt) {}
         virtual bool IsResolved() const = 0;
 
         bool IsHalting() const;
@@ -15,17 +15,14 @@ class Action {
         bool mIsHalting;
 };
 
-class TimedAction : public Action {
+class ControlAction : public Action {
     public:
-        TimedAction(float duration);
+        virtual ~ControlAction() {}
+};
 
-        virtual void Initialize();
-        virtual void Execute();
-        virtual bool IsResolved() const;
-
-    protected:
-        float mCurrentFrame;
-        float mDuration;
+class AnimateAction : public Action {
+    public:
+        virtual ~AnimateAction() {}
 };
 
 #endif

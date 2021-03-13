@@ -1,5 +1,9 @@
 #include "Timeline.h"
 
+Timeline::Timeline() {
+    Reset();
+}
+
 Timeline::~Timeline() {
     for (Action* action : mActions) {
         delete action;
@@ -24,9 +28,9 @@ bool Timeline::IsTimelineComplete() const {
     return mNextActionIndex >= mActions.size() && mActiveActions.empty();
 }
 
-void Timeline::Update() {
+void Timeline::Update(float dt) {
     UpdateActiveActions();
-    ResolveActiveActions();
+    ResolveActiveActions(dt);
 }
 
 void Timeline::UpdateActiveActions() {
@@ -55,11 +59,11 @@ void Timeline::UpdateActiveActions() {
     }
 }
 
-void Timeline::ResolveActiveActions() {
+void Timeline::ResolveActiveActions(float dt) {
     std::list<Action*> resolvedActions;
 
     for (Action* action : mActiveActions) {
-        action->Execute();
+        action->Execute(dt);
 
         if (action->IsResolved()) {
             resolvedActions.push_back(action);

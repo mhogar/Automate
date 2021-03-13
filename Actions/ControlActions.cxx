@@ -1,10 +1,21 @@
-#include "StdActions.h"
+#include "ControlActions.h"
 #include <iostream>
 
-DelayAction::DelayAction(float duration)
-    : TimedAction(duration)
-{
+DelayAction::DelayAction(float duration) {
+    mDuration = duration;
     mIsHalting = true;
+}
+
+void DelayAction::Initialize() {
+    mTimer = 0;
+}
+
+void DelayAction::Execute(float dt) {
+    mTimer += dt;
+}
+
+bool DelayAction::IsResolved() const {
+    return mTimer >= mDuration;
 }
 
 //-----------------------------------------------------------------------

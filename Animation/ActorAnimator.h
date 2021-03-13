@@ -1,16 +1,26 @@
 #ifndef ANIMATION_ACTOR_ANIMATOR_H
 #define ANIMATION_ACTOR_ANIMATOR_H
 
-#include "RootAnimator.h"
 #include "Actors/Actor.h"
+#include "Actors/ActorData.hxx"
+#include "Actors/BoxData.hxx"
 
-class ActorAnimator : public RootAnimator {
+class ActorAnimator {
     public:
         ActorAnimator(Actor* actor);
         virtual ~ActorAnimator() {}
 
-        void Translate(float duration);
-        void Opacity(float duration);
+        void Delay(float duration);
+        void Wait();
+
+        void Translate(float targetX, float targetY, float duration);
+        void Opacity(float targetOpacity, float duration);
+
+        ActorAnimator AddActorChild(ActorData& data);
+        ActorAnimator AddBoxChild(BoxData& data);
+
+    protected:
+        Actor* mActor;
 };
 
 #endif

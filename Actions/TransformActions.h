@@ -4,22 +4,32 @@
 #include "Action.h"
 #include "Actors/ActorData.hxx"
 
-class TranslateAction : public TimedAction {
+template <class T>
+class TransformAction : public AnimateAction {
     public:
-        TranslateAction(ActorData* data, float duration);
-        virtual void Execute();
+        TransformAction(T* data, T endValue, float duration);
+        
+        virtual void Initialize();
+        virtual void Execute(float dt);
+        virtual bool IsResolved() const;
 
-    private:
-        ActorData* mData;
+    protected:
+        float mTimer;
+        float mDuration;
+
+        T mStartValue;
+        T mEndValue;
+        T* mData;
 };
 
-class OpacityAction : public TimedAction {
+class TranslateAction : public TransformAction<glm::vec2> {
     public:
-        OpacityAction(ActorData* data, float duration);
-        virtual void Execute();
-    
-    private:
-        ActorData* mData;
+        TranslateAction(glm::vec2* data, glm::vec2 endPos, float duration);
+};
+
+class OpacityAction : public TransformAction<float> {
+    public:
+        OpacityAction(float* data, float endOpacity, float duration);
 };
 
 #endif

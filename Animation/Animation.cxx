@@ -1,20 +1,14 @@
 #include "Animation.h"
 
-Animation::Animation() {
-    mRoot = new RootActor();
+ActorAnimator Animation::GetRoot() {
+    return ActorAnimator(&mRoot);
 }
 
-Animation::~Animation() {
-    delete mRoot;
-}
+void Animation::Render(float framerate) {
+    float dt = 1.0f / framerate;
 
-RootAnimator Animation::GetRoot() {
-    return RootAnimator(mRoot);
-}
-
-void Animation::Render() {
-    while (!mRoot->GetTimelineRef()->IsTimelineComplete()) {
-        mRoot->Update();
-        mRoot->Render();
+    while (!mRoot.GetTimelineRef()->IsTimelineComplete()) {
+        mRoot.Update(dt);
+        mRoot.Render();
     }
 }

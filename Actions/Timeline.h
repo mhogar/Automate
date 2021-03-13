@@ -7,6 +7,7 @@
 
 class Timeline {
     public:
+        Timeline();
         ~Timeline();
 
         void Reset();
@@ -16,7 +17,7 @@ class Timeline {
         int GetNumActiveActions() const;
         bool IsTimelineComplete() const;
 
-        void Update();
+        void Update(float dt);
         void Render();
 
     protected:
@@ -24,7 +25,7 @@ class Timeline {
 
     private:
         void UpdateActiveActions();
-        void ResolveActiveActions();
+        void ResolveActiveActions(float dt);
 
         std::list<Action*> mActiveActions;
         int mNextActionIndex;

@@ -6,13 +6,13 @@
 
 class BoxActor : public Actor {
     public:
-        BoxActor(RootActor* parent, BoxData& data);
+        BoxActor(Actor* parent, BoxData& data);
         virtual ~BoxActor() {};
 
         BoxData* GetBoxData() const;
 
     protected:
-        BoxActor(RootActor* parent, BoxData* data);
+        BoxActor(Actor* parent, BoxData* data);
 };
 
 #endif

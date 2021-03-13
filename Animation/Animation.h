@@ -1,19 +1,15 @@
 #ifndef ANIMATION_ANIMATION_H
 #define ANIMATION_ANIMATION_H
 
-#include "RootAnimator.h"
+#include "ActorAnimator.h"
 
 class Animation {
     public:
-        Animation();
-        ~Animation();
-
-        RootAnimator GetRoot();
-
-        void Render();
+        ActorAnimator GetRoot();
+        void Render(float framerate);
 
     private:
-        RootActor* mRoot;
+        Actor mRoot;
 };
 
 #endif
