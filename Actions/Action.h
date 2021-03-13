@@ -1,38 +1,25 @@
-#ifndef ACTIONS_ACTION_H
-#define ACTIONS_ACTION_H
-
-#include "Animation/Animation.h"
-
-class Animation;
+#pragma once
 
 class Action {
     public:
-        Action(Animation* parent);
         virtual ~Action() {}
 
         virtual void Initialize() {}
-        virtual void Execute() {}
-        virtual bool IsResolved() = 0;
+        virtual void Execute(float dt) {}
+        virtual bool IsResolved() const = 0;
 
-        bool IsHalting();
-        void NotifyParentActionResolved();
+        bool IsHalting() const;
 
     protected:
-        Animation* mParent;
         bool mIsHalting;
 };
 
-class TimedAction : public Action{
+class ControlAction : public Action {
     public:
-        TimedAction(Animation* parent, int duration);
-
-        virtual void Initialize();
-        virtual void Execute();
-        virtual bool IsResolved();
-
-    protected:
-        int mCurrentFrame;
-        int mDuration;
+        virtual ~ControlAction() {}
 };
 
-#endif
+class AnimateAction : public Action {
+    public:
+        virtual ~AnimateAction() {}
+};

@@ -1,5 +1,2 @@
-add_library(animation Animation.cxx AnimationBuilder.cxx AnimationRenderer.cxx)
-
-target_link_libraries(animation PRIVATE actions)
-
+add_library(animation Animation.cxx ActorAnimator.cxx)
 target_include_directories(animation PUBLIC "${PROJECT_SOURCE_DIR}")

@@ -1,29 +1,22 @@
-#include "Animation/AnimationRenderer.h"
-#include "Animation/AnimationBuilder.h"
+#include "Animation/Animation.h"
 
-std::shared_ptr<Animation> RootAnimation();
-std::shared_ptr<Animation> ChildAnimation();
+void CreateAnimation(ActorAnimator& root);
 
 int main() {
-    auto animation = RootAnimation();
+    Animation animation;
+    ActorAnimator root = animation.GetRoot();
+    
+    CreateAnimation(root);
 
-    AnimationRenderer::ConfigureFrameRate(10);
-    AnimationRenderer::RenderAnimation(*animation);
+    animation.LogRender(10);
 }
 
-std::shared_ptr<Animation> RootAnimation() {
-    AnimationBuilder b;
+void CreateAnimation(ActorAnimator& root) {
+    BoxData boxData;
+    ActorAnimator box = root.AddBoxChild(boxData);
 
-    b.RunAsync(ChildAnimation());
-    b.Translate(1);
-
-    return b.GetAnimation();
-}
-
-std::shared_ptr<Animation> ChildAnimation() {
-    AnimationBuilder b;
-
-    b.Opacity(2);
-
-    return b.GetAnimation();
+    box.Translate(50, 50, 1);
+    box.Rotate(45, 1);
+    box.Scale(50, 50, 1);
+    box.Opacity(0, 1);
 }

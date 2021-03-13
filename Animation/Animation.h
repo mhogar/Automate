@@ -1,36 +1,12 @@
-#ifndef ANIMATION_ANIMATION_H
-#define ANIMATION_ANIMATION_H
+#pragma once
 
-#include "Actions/Action.h"
-#include <list>
-
-class Action;
+#include "ActorAnimator.h"
 
 class Animation {
     public:
-        Animation() {};
-        ~Animation();
-
-        void Initialize();
-
-        void AddAction(Action* action);
-        void AddChildAnimation(Animation* child);
-
-        int GetNumActiveActions() const;
-        bool IsAnimationComplete() const;
-
-        void NotifyActionResolved();
-        std::list<Action*> GetNextActions();
+        ActorAnimator GetRoot();
+        void LogRender(float framerate);
 
     private:
-        std::list<Animation*> mChildAnimations;
-
-        std::list<Action*> mActions;
-        std::list<Action*>::iterator mActionItr;
-
-        int mNumActiveActions;
-        bool mIsHalted;
-        
+        Actor mRoot;
 };
-
-#endif

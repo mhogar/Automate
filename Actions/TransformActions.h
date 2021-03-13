@@ -1,18 +1,43 @@
-#ifndef ACTIONS_TRANSFORM_ACTION_H
-#define ACTIONS_TRANSFORM_ACTION_H
+#pragma once
 
 #include "Action.h"
+#include "Actors/ActorData.h"
+#include <glm/vec3.hpp>
 
-class TranslateAction : public TimedAction {
+template <class T>
+class TransformAction : public AnimateAction {
     public:
-        TranslateAction(Animation* parent, int duration);
-        virtual void Execute();
+        TransformAction(T* data, T endValue, float duration);
+        
+        virtual void Initialize();
+        virtual void Execute(float dt);
+        virtual bool IsResolved() const;
+
+    protected:
+        float mTimer;
+        float mDuration;
+
+        T mStartValue;
+        T mEndValue;
+        T* mData;
 };
 
-class OpacityAction : public TimedAction {
+class TranslateAction : public TransformAction<glm::vec3> {
     public:
-        OpacityAction(Animation* parent, int numFrames);
-        virtual void Execute();
+        TranslateAction(glm::vec3* data, glm::vec3 endValue, float duration);
 };
 
-#endif
+class RotateAction : public TransformAction<glm::vec3> {
+    public:
+        RotateAction(glm::vec3* data, glm::vec3 endValue, float duration);
+};
+
+class ScaleAction : public TransformAction<glm::vec3> {
+    public:
+        ScaleAction(glm::vec3* data, glm::vec3 endValue, float duration);
+};
+
+class OpacityAction : public TransformAction<float> {
+    public:
+        OpacityAction(float* data, float endValue, float duration);
+};
