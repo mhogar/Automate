@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16.0)
 
 option(Debug "Debug" OFF)
 
-if(DEBUG)
+if(Debug)
     message(STATUS "Configuring for Debug mode.")
     set(CMAKE_BUILD_TYPE Debug)
 else()
@@ -21,4 +21,4 @@ add_subdirectory(Animation)
 
 target_link_libraries(automate PRIVATE animation actors actions renderer)
 
-target_include_directories(automate PUBLIC "${PROJECT_SOURCE_DIR}")
+target_include_directories(automate PUBLIC "${PROJECT_SOURCE_DIR}/src/" "${PROJECT_SOURCE_DIR}/include/")
