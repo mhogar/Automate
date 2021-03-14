@@ -12,13 +12,12 @@ endif()
 
 project(automate VERSION 0.1.0)
 
-add_executable(automate main.cxx)
+add_executable(automate main.cxx Animation.cxx)
 
-add_subdirectory(Actions)
-add_subdirectory(Renderer)
+add_subdirectory(Animators)
 add_subdirectory(Actors)
-add_subdirectory(Animation)
+add_subdirectory(Actions)
+add_subdirectory(Renderers)
 
-target_link_libraries(automate PRIVATE animation actors actions renderer)
-
+target_link_libraries(automate PRIVATE animators actors actions renderers)
 target_include_directories(automate PUBLIC "${PROJECT_SOURCE_DIR}" "${PROJECT_SOURCE_DIR}/../include")

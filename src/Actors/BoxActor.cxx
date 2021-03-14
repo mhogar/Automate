@@ -1,5 +1,5 @@
 #include "BoxActor.h"
-#include "Renderer/Renderer.h"
+#include "Renderers/Renderer.h"
 
 BoxActor::BoxActor(Actor* parent, BoxData& data) : Actor(parent, data) {
     Colour = data.Colour;
