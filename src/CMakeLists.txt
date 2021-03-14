@@ -21,4 +21,4 @@ add_subdirectory(Animation)
 
 target_link_libraries(automate PRIVATE animation actors actions renderer)
 
-target_include_directories(automate PUBLIC "${PROJECT_SOURCE_DIR}/src/" "${PROJECT_SOURCE_DIR}/include/")
+target_include_directories(automate PUBLIC "${PROJECT_SOURCE_DIR}" "${PROJECT_SOURCE_DIR}/../include")
