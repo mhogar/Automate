@@ -21,7 +21,7 @@ add_library(automate-core SHARED Animation.cxx)
 FILE(GLOB PUBLIC_API ../include/*.h)
 set_target_properties(automate-core PROPERTIES
     VERSION ${PROJECT_VERSION}
-    SOVERSION 0
+    SOVERSION ${PROJECT_VERSION_MAJOR}
     PUBLIC_HEADER "${PUBLIC_API}")
 
 add_subdirectory(Animators)
@@ -34,4 +34,4 @@ target_include_directories(automate-core PUBLIC "${PROJECT_SOURCE_DIR}" "${PROJE
 
 install(TARGETS automate-core
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Automate/v0)
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Automate/v${PROJECT_VERSION_MAJOR})
