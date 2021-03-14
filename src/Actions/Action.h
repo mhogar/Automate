@@ -2,6 +2,7 @@
 
 class Action {
     public:
+        Action();
         virtual ~Action() {}
 
         virtual void Initialize() {}
