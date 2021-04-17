@@ -1,5 +1,4 @@
 #include "Shell.h"
-#include "Versions.h"
 #include "Commands/BasicCommands.h"
 #include <sstream>
 
@@ -23,8 +22,6 @@ Shell::~Shell() {
 }
 
 void Shell::MainLoop() {
-    mOut << "automate shell interface " << AUTOMATE_SHELL_VERSION << std::endl;
-
     bool quit = false;
     while (!quit) {
         mOut << "> ";

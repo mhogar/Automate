@@ -1,4 +1,4 @@
-add_library(core Animation.cxx)
+add_library(core Animation.cxx Version.cxx)
 
 add_subdirectory(Animators)
 add_subdirectory(Actors)

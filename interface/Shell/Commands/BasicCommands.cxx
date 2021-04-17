@@ -1,4 +1,5 @@
 #include "BasicCommands.h"
+#include "Version.h"
 
 HelpCommand::HelpCommand(std::ostream& out, const std::map<std::string, Command*>& commandsRef)
     : Command(out, "print this usage"), mCommandsRef(commandsRef) {}
@@ -7,7 +8,7 @@ bool HelpCommand::Execute(const std::vector<std::string>& args) {
     mOut << "Usage:" << std::endl;
 
     for (auto& pair : mCommandsRef) {
-        mOut << "  " << pair.first << ": ";
+        Indent() << pair.first << ": ";
         pair.second->PrintUsage();
     }
 

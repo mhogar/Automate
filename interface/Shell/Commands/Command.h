@@ -13,6 +13,8 @@ class Command {
         virtual bool Execute(const std::vector<std::string>& args) = 0;
 
     protected:
+        std::ostream& Indent();
+
         std::ostream& mOut;
         std::string mUsage;
 };

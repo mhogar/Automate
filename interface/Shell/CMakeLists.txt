@@ -1,4 +1,4 @@
-add_library(interface Shell.cxx)
+add_library(interface Shell.cxx Version.cxx)
 
 add_subdirectory(Commands)
 
