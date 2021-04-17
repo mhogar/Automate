@@ -7,5 +7,5 @@ build/debug/*
 build/release/*
 !build/release/.keep
 
-template/build/*
-!template/build/.keep
+core/Version.cxx
+interface/Version.cxx

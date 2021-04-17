@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16.0)
+cmake_minimum_required(VERSION 3.18.0)
 
 option(Debug "Debug" OFF)
 
@@ -10,6 +10,8 @@ else()
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 project(automate VERSION 0.1.0)
 
 add_executable(automate main.cxx)
@@ -17,5 +19,5 @@ add_executable(automate main.cxx)
 add_subdirectory(core)
 add_subdirectory(interface)
 
-target_link_libraries(automate PRIVATE core interface)
+target_link_libraries(automate PRIVATE automate-core automate-ui)
 target_include_directories(automate PUBLIC "${PROJECT_SOURCE_DIR}/include")
