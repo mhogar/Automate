@@ -1,6 +1,11 @@
 #pragma once
 
-namespace Version {
-    const char* Core();
-    const char* Interface();
+#include <string>
+
+struct Version {
+    std::string CodeVersion;
+    std::string APIVersion;
+
+    static Version Core();
+    static Version Interface();
 };

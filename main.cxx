@@ -40,8 +40,12 @@ void handleHelpCommand() {
     indent() << "--version: print version info" << std::endl;
 }
 
+void printVersion(const char* name, const Version& version) {
+    indent() << name << ": v" << version.CodeVersion << " (API v" << version.APIVersion << ")" << std::endl;
+}
+
 void handleVersionCommand() {
     std::cout << "Version:" << std::endl;
-    indent() << "core: " << Version::Core() << std::endl;
-    indent() << "interface: " << Version::Interface() << std::endl;
+    printVersion("core", Version::Core());
+    printVersion("interface", Version::Interface());
 }
