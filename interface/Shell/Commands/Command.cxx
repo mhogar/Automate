@@ -7,7 +7,7 @@ Command::Command(std::ostream& out, std::string usage)
 }
 
 void Command::PrintUsage() {
-    mOut << mUsage << std::endl;
+    mOut << mUsage << "\n";
 }
 
 std::ostream& Command::Indent() {

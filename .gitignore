@@ -9,3 +9,4 @@ build/release/*
 
 core/Version.cxx
 interface/Version.cxx
+media/Version.cxx

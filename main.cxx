@@ -17,7 +17,7 @@ int main(int argc, const char** argv) {
             handleVersionCommand();
         }
         else {
-            std::cout << "Unknown argument. Run with --help for usage." << std::endl;
+            std::cout << "Unknown argument. Run with --help for usage.\n";
         }
 
         return 0;
@@ -34,18 +34,19 @@ std::ostream& indent() {
 }
 
 void handleHelpCommand() {
-    std::cout << "Usage: Runs the automate interface" << std::endl;
-    std::cout << "Optional:" << std::endl;
-    indent() << "--help: print this usage" << std::endl;
-    indent() << "--version: print version info" << std::endl;
+    std::cout << "Usage: Runs the automate interface\n";
+    std::cout << "Optional:\n";
+    indent() << "--help: print this usage\n";
+    indent() << "--version: print version info\n";
 }
 
 void printVersion(const char* name, const Version& version) {
-    indent() << name << ": v" << version.CodeVersion << " (API v" << version.APIVersion << ")" << std::endl;
+    indent() << name << ": v" << version.CodeVersion << " (API v" << version.APIVersion << ")\n";
 }
 
 void handleVersionCommand() {
-    std::cout << "Version:" << std::endl;
+    std::cout << "Version:\n";
     printVersion("core", Version::Core());
     printVersion("interface", Version::Interface());
+    printVersion("media", Version::Media());
 }

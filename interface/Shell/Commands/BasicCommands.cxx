@@ -5,7 +5,7 @@ HelpCommand::HelpCommand(std::ostream& out, const std::map<std::string, Command*
     : Command(out, "print this usage"), mCommandsRef(commandsRef) {}
 
 bool HelpCommand::Execute(const std::vector<std::string>& args) {
-    mOut << "Usage:" << std::endl;
+    mOut << "Usage:\n";
 
     for (auto& pair : mCommandsRef) {
         Indent() << pair.first << ": ";

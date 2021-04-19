@@ -1,5 +1,6 @@
 #include "Shell.h"
 #include "Commands/BasicCommands.h"
+#include "Commands/GPUCommand.h"
 #include <sstream>
 
 UserInterface* UserInterface::CreateInstance() {
@@ -11,7 +12,8 @@ Shell::Shell(std::istream& in, std::ostream& out)
 {
     mCommands.insert({
         std::pair<std::string, Command*>("help", new HelpCommand(mOut, mCommands)),
-        std::pair<std::string, Command*>("exit", new ExitCommand(mOut))
+        std::pair<std::string, Command*>("exit", new ExitCommand(mOut)),
+        std::pair<std::string, Command*>("gpu", new GPUCommand(mIn, mOut)),
     });
 }
 
@@ -49,7 +51,7 @@ void Shell::MainLoop() {
            quit = itr->second->Execute(args);
         }
         else {
-            mOut << "Command \"" << args[0] << "\" not found. Use \"help\" for usage." << std::endl;
+            mOut << "Command \"" << args[0] << "\" not found. Use \"help\" for usage.\n";
         }
     }
 }
