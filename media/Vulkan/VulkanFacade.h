@@ -1,4 +1,5 @@
 #include "GraphicsFacade.h"
+#include <vulkan/vulkan.h>
 
 class VulkanFacade : public GraphicsFacade {
     public:
@@ -12,9 +13,18 @@ class VulkanFacade : public GraphicsFacade {
     private:
         struct GPUDevice {
             GPUDeviceInfo Info;
+            VkPhysicalDevice PhysicalDevice;
         };
 
+        void CreateInstance();
+        bool CheckValidationLayerSupport();
+
         void InitDeviceList();
+        //void CreateLogicalDevice();
+
+        VkInstance mVKInstance;
+        //VkDevice mDevice;
+        //VkQueue mGraphicsQueue;
 
         std::vector<GPUDevice> mDevices;
         int mSelectedDeviceIndex;
