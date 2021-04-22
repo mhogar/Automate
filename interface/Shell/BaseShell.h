@@ -7,5 +7,6 @@ class BaseShell : public Shell, public UserInterface  {
     public:
         BaseShell(std::istream& in, std::ostream& out);
 
+        virtual bool Update();
         virtual void MainLoop();
 };

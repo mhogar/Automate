@@ -1,5 +1,6 @@
 #include "BaseShell.h"
 #include "Commands/GPUCommand.h"
+#include "Commands/PreviewCommand.h"
 
 UserInterface* UserInterface::CreateInstance() {
     return new BaseShell(std::cin, std::cout);
@@ -10,14 +11,15 @@ BaseShell::BaseShell(std::istream& in, std::ostream& out)
 {
     mCommands.insert({
         std::pair<std::string, Command*>("gpu", new GPUCommand(mOut)),
+        std::pair<std::string, Command*>("preview", new PreviewCommand(mIn, mOut)),
     });
 }
 
-void BaseShell::MainLoop() {
-    bool quit = false;
+bool BaseShell::Update() {
+    mOut << "> ";
+    return HandleInput();
+}
 
-    while (!quit) {
-        mOut << "> ";
-        quit = HandleInput();
-    }
+void BaseShell::MainLoop() {
+    while (!Update());
 }

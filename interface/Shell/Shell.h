@@ -8,6 +8,8 @@ class Shell {
         Shell(std::istream& in, std::ostream& out);
         virtual ~Shell();
 
+        virtual bool Update() = 0;
+
     protected:
         bool HandleInput();
 
