@@ -18,7 +18,7 @@ bool HelpCommand::Execute(const std::vector<std::string>& args) {
 //--------------------------------------------------------------------------------
 
 ExitCommand::ExitCommand(std::ostream& out)
-    : Command(out, "exit the shell") {}
+    : Command(out, "exit the shell layer") {}
 
 bool ExitCommand::Execute(const std::vector<std::string>& args) {
     return true;

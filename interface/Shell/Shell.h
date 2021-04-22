@@ -1,17 +1,16 @@
 #pragma once
 
-#include "UserInterface.h"
 #include "Commands/Command.h"
 #include <map>
 
-class Shell: public UserInterface {
+class Shell {
     public:
         Shell(std::istream& in, std::ostream& out);
-        ~Shell();
+        virtual ~Shell();
 
-        virtual void MainLoop();
+    protected:
+        bool HandleInput();
 
-    private:
         std::istream& mIn;
         std::ostream& mOut;
 

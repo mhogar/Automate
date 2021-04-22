@@ -7,7 +7,7 @@ file(CONFIGURE OUTPUT "${PROJECT_SOURCE_DIR}/interface/Version.cxx"
         CONTENT "${VERSION_FILE_TMPL}"
         NEWLINE_STYLE UNIX)
 
-add_library(automate-ui SHARED Shell.cxx ../Version.cxx)
+add_library(automate-ui SHARED Shell.cxx BaseShell.cxx ../Version.cxx)
 set_target_properties(automate-ui PROPERTIES
     VERSION ${LIB_CODE_VERSION})
 
