@@ -40,6 +40,10 @@ std::vector<GPUDeviceInfo> VulkanFacade::GetGPUDeviceList() {
 }
 
 void VulkanFacade::SelectGPU(int index) {
+    if (index == mSelectedDeviceIndex) {
+        return;
+    }
+
     mSelectedDeviceIndex = index;
 }
 

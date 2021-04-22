@@ -13,7 +13,7 @@ Shell::Shell(std::istream& in, std::ostream& out)
     mCommands.insert({
         std::pair<std::string, Command*>("help", new HelpCommand(mOut, mCommands)),
         std::pair<std::string, Command*>("exit", new ExitCommand(mOut)),
-        std::pair<std::string, Command*>("gpu", new GPUCommand(mIn, mOut)),
+        std::pair<std::string, Command*>("gpu", new GPUCommand(mOut)),
     });
 }
 
