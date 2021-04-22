@@ -5,12 +5,19 @@ SDLWindow::SDLWindow(int width, int height, const char* title) {
     mWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
 }
 
+SDLWindow::~SDLWindow() {
+    Close();
+}
+
 void SDLWindow::PollEvents() {
     SDL_Event event;
-    SDL_PollEvent(&event);
-
-    if (event.type == SDL_QUIT) {
-        mShouldClose = true;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            mShouldClose = true;
+        }
+        else if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE) {
+            mShouldClose = true;
+        }
     }
 }
 

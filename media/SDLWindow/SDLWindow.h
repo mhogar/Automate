@@ -6,6 +6,7 @@
 class SDLWindow : public Window {
     public:
         SDLWindow(int width, int height, const char* title);
+        ~SDLWindow();
 
         virtual void PollEvents();
         virtual bool ShouldClose();
