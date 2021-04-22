@@ -1,3 +1,4 @@
+#include "GraphicsFacade.h"
 #include "UserInterface.h"
 #include "Version.h"
 #include <string>
@@ -23,10 +24,14 @@ int main(int argc, const char** argv) {
         return 0;
     }
 
-    // create and run the interface
-    UserInterface* ui = UserInterface::CreateInstance();
-    ui->MainLoop();
-    delete ui;
+    // init and run the program
+    GraphicsFacade::Instance()->Init();
+    {
+        UserInterface* ui = UserInterface::CreateInstance();
+        ui->MainLoop();
+        delete ui;
+    }
+    GraphicsFacade::Dispose();
 }
 
 std::ostream& indent() {

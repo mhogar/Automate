@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Window.h"
 #include <string>
 #include <vector>
 
@@ -10,6 +11,9 @@ struct GPUDeviceInfo {
 class GraphicsFacade {
     public:
         virtual ~GraphicsFacade() {};
+
+        virtual void Init() {}
+        virtual Window* CreateWindow(int width, int height, const char* title) = 0;
 
         virtual std::vector<GPUDeviceInfo> GetGPUDeviceList() = 0;
         virtual void SelectGPU(int index) = 0;
