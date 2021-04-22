@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.18.0)
+set(CMAKE_CXX_STANDARD 17)
 
 option(Debug "Debug" OFF)
 
@@ -18,6 +19,7 @@ add_executable(automate main.cxx)
 
 add_subdirectory(core)
 add_subdirectory(interface)
+add_subdirectory(media)
 
-target_link_libraries(automate PRIVATE automate-core automate-ui)
+target_link_libraries(automate PRIVATE automate-core automate-ui automate-media)
 target_include_directories(automate PUBLIC "${PROJECT_SOURCE_DIR}/include")

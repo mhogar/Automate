@@ -8,4 +8,5 @@ struct Version {
 
     static Version Core();
     static Version Interface();
+    static Version Media();
 };
