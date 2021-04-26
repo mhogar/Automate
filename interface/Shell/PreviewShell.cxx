@@ -12,13 +12,14 @@ PreviewShell::~PreviewShell() {
     delete mWindow;
 }
 
-bool PreviewShell::Update() {
+void PreviewShell::Update() {
     //TODO: Run window events on a separate thread?
     mWindow->PollEvents();
     if (mWindow->ShouldClose()) {
-        return true;
+        mShouldExit = true;
+        return;
     }
 
-    mOut << "(preview) > ";
-    return HandleInput();
+    mOut << "preview > ";
+    HandleInput();
 }

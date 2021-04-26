@@ -8,7 +8,7 @@ class PreviewShell : public Shell {
         PreviewShell(std::istream& in, std::ostream& out);
         ~PreviewShell();
 
-        virtual bool Update();
+        virtual void Update();
     
     private:
         Window *mWindow;

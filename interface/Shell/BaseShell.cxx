@@ -1,6 +1,6 @@
 #include "BaseShell.h"
-#include "Commands/GPUCommand.h"
-#include "Commands/PreviewCommand.h"
+#include "PreviewShell.h"
+#include "GPUShell.h"
 
 UserInterface* UserInterface::CreateInstance() {
     return new BaseShell(std::cin, std::cout);
@@ -10,16 +10,34 @@ BaseShell::BaseShell(std::istream& in, std::ostream& out)
     : Shell(in, out)
 {
     mCommands.insert({
-        std::pair<std::string, Command*>("gpu", new GPUCommand(mOut)),
-        std::pair<std::string, Command*>("preview", new PreviewCommand(mIn, mOut)),
+        std::pair<std::string, Command>("preview",
+            {
+                "(shell) open the preview window", 
+                [this](const std::vector<std::string>& args) { HandlePreviewCommand(args); }
+            }
+        ),
+        std::pair<std::string, Command>("gpu",
+            {
+                "(shell) view and select available GPUs", 
+                [this](const std::vector<std::string>& args) { HandleGPUCommand(args); }
+            }
+        ),
     });
 }
 
-bool BaseShell::Update() {
-    mOut << "> ";
-    return HandleInput();
+void BaseShell::MainLoop() {
+    RunShell();
 }
 
-void BaseShell::MainLoop() {
-    while (!Update());
+void BaseShell::Update() {
+    mOut << "> ";
+    HandleInput();
+}
+
+void BaseShell::HandlePreviewCommand(const std::vector<std::string>& args) {
+    PreviewShell(mIn, mOut).RunShell();
+}
+
+void BaseShell::HandleGPUCommand(const std::vector<std::string>& args) {
+    GPUShell(mIn, mOut).RunShell();
 }
