@@ -14,14 +14,23 @@ class Shell {
         void RunShell();
 
     protected:
+        struct CommandArg {
+            std::string Name;
+            std::string Usage;
+            bool Required;
+        };
+
         struct Command {
             std::string Usage;
+            std::vector<CommandArg> Args;
             std::function<void(const std::vector<std::string>&)> ExecuteFunc;
+
+            int RequiredArgsCount();
         };
 
         virtual void Update() = 0;
 
-        std::ostream& Indent();
+        std::ostream& Indent(int num);
         void HandleInput();
 
         std::istream& mIn;
@@ -31,6 +40,8 @@ class Shell {
         bool mShouldExit;
 
     private:
+        void PrintCommandUsage(const std::string& name, const Command& command, bool printArgs);
+
         void HandleExitCommand(const std::vector<std::string>& args);
         void HandleHelpCommand(const std::vector<std::string>& args);
 };

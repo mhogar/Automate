@@ -12,13 +12,13 @@ BaseShell::BaseShell(std::istream& in, std::ostream& out)
     mCommands.insert({
         std::pair<std::string, Command>("preview",
             {
-                "(shell) open the preview window", 
+                "(shell) open the preview window", {},
                 [this](const std::vector<std::string>& args) { HandlePreviewCommand(args); }
             }
         ),
         std::pair<std::string, Command>("gpu",
             {
-                "(shell) view and select available GPUs", 
+                "(shell) view and select available GPUs", {},
                 [this](const std::vector<std::string>& args) { HandleGPUCommand(args); }
             }
         ),

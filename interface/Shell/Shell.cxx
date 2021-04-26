@@ -11,13 +11,16 @@ Shell::Shell(std::istream& in, std::ostream& out)
     mCommands.insert({
         std::pair<std::string, Command>("help",
             {
-                "print this usage", 
+                "print this usage",
+                {
+                    { "name", "print detailed usage including arguments for this command", false },
+                },
                 [this](const std::vector<std::string>& args) { HandleHelpCommand(args); }
             }
         ),
         std::pair<std::string, Command>("exit",
             {
-                "exit the shell layer", 
+                "exit the shell layer", {},
                 [this](const std::vector<std::string>& args) { HandleExitCommand(args); }
             }
         ),
@@ -30,8 +33,23 @@ void Shell::RunShell() {
     }
 }
 
-std::ostream& Shell::Indent() {
-    return mOut << "  ";
+int Shell::Command::RequiredArgsCount() {
+    int count = 0;
+    for (const CommandArg& arg : Args) {
+        if (arg.Required) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+
+std::ostream& Shell::Indent(int num) {
+    for (int i = 0; i < num; i++) {
+        mOut << "  ";
+    }
+    return mOut << "* ";
 }
 
 void Shell::HandleInput() {
@@ -55,10 +73,33 @@ void Shell::HandleInput() {
     // lookup the command and execute it if it exists
     auto itr = mCommands.find(args[0]);
     if (itr != mCommands.end()) {
-        itr->second.ExecuteFunc(args);
+        if (args.size() > itr->second.RequiredArgsCount()) {
+            itr->second.ExecuteFunc(args);
+        }
+        else {
+            Indent(1) << "Too few args. Use \"help " << args[0] << "\" for usage.\n";
+        }
     }
     else {
-        mOut << "Command \"" << args[0] << "\" not found. Use \"help\" for usage.\n";
+        Indent(1) << "Command \"" << args[0] << "\" not found. Use \"help\" for command list.\n";
+    }
+}
+
+void Shell::PrintCommandUsage(const std::string& name, const Command& command, bool printArgs) {
+    // print command with args and usage
+    Indent(1) << name;
+    if (printArgs) {
+        for (const CommandArg& arg : command.Args) {
+            mOut << " <" << arg.Name << ">";
+        }
+    }
+    mOut << ": " << command.Usage << "\n";
+    
+    // print arg usage
+    if (printArgs) {
+        for (const CommandArg& arg : command.Args) {
+            Indent(2) << arg.Name << " (" << (arg.Required ? "required" : "optional") << "): " << arg.Usage << "\n";
+        }
     }
 }
 
@@ -67,9 +108,21 @@ void Shell::HandleExitCommand(const std::vector<std::string>& args) {
 }
 
 void Shell::HandleHelpCommand(const std::vector<std::string>& args) {
-    mOut << "Usage:\n";
+    if (args.size() > 1) {
+        // lookup the command and print its usage if it exists
+        auto itr = mCommands.find(args[1]);
+        if (itr != mCommands.end()) {
+            PrintCommandUsage(itr->first, itr->second, true);
+        }
+        else {
+            Indent(1) << "Command \"" << args[1] << "\" not found.\n";
+        }
 
-    for (auto& pair : mCommands) {
-        Indent() << pair.first << ": " << pair.second.Usage << "\n";
+        return;
+    }
+
+    // print usage for every command
+    for (const auto& pair : mCommands) {
+        PrintCommandUsage(pair.first, pair.second, false);
     }
 }

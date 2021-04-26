@@ -9,13 +9,16 @@ GPUShell::GPUShell(std::istream& in, std::ostream& out)
     mCommands.insert({
         std::pair<std::string, Command>("list",
             {
-                "list all GPUs", 
+                "list all GPUs", {},
                 [this](const std::vector<std::string>& args) { HandleListCommand(args); }
             }
         ),
         std::pair<std::string, Command>("select",
             {
-                "select a GPU by its index", 
+                "select a GPU by its index",
+                {
+                    { "index", "the index to select", true },
+                },
                 [this](const std::vector<std::string>& args) { HandleSelectCommand(args); }
             }
         ),
@@ -42,17 +45,18 @@ void GPUShell::HandleSelectCommand(const std::vector<std::string>& args) {
 
     // check index is valid and select the GPU
     if (index < 0 || index >= mGPUInfos.size()) {
-        Indent() << "* invalid index\n";
+        Indent(1) << "invalid index\n";
     }
     else {
+        mSelectedGPUIndex = index;
         GraphicsFacade::Instance()->SelectGPU(index);
-        Indent() << "* selected \"" << mGPUInfos[index].Name << "\"\n";
+        Indent(1) << "selected \"" << mGPUInfos[index].Name << "\"\n";
     }
 }
 
 void GPUShell::PrintGPUList() {
     for (int i = 0; i < mGPUInfos.size(); i++) {
-        Indent() << i << ": " << mGPUInfos[i].Name << " (compatibility list)";
+        Indent(1) << i << ": " << mGPUInfos[i].Name << " (compatibility list)";
         mOut << (i == mSelectedGPUIndex ? " <- selected\n" : "\n");
     }
 }
