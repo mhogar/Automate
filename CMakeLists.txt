@@ -17,7 +17,6 @@ project(automate VERSION 0.1.0)
 
 add_executable(automate main.cxx)
 
-#add_subdirectory(common)
 add_subdirectory(core)
 add_subdirectory(interface)
 add_subdirectory(media)
