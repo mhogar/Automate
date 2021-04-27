@@ -8,32 +8,29 @@ BaseShell::BaseShell(std::istream& in, std::ostream& out)
     mCommands.insert({
         std::pair<std::string, Command>("preview",
             {
-                "(shell) open the preview window", {},
+                "enter shell layer for creating and controlling the preview window", {},
                 [this](const std::vector<std::string>& args) { HandlePreviewCommand(args); }
             }
         ),
         std::pair<std::string, Command>("gpu",
             {
-                "(shell) view and select available GPUs", {},
+                "enter shell layer for viewing and selecting available GPUs", {},
                 [this](const std::vector<std::string>& args) { HandleGPUCommand(args); }
             }
         ),
     });
-
-    mOut << "> ";
 }
 
 
 void BaseShell::Update() {
-    if (HandleInput()) {
-        mOut << "> ";
-    }
+    mOut << "> ";
+    HandleInput();
 }
 
 void BaseShell::HandlePreviewCommand(const std::vector<std::string>& args) {
-    PreviewShell(mConsoleIn, mOut).RunShell();
+    PreviewShell(mIn, mOut).RunShell();
 }
 
 void BaseShell::HandleGPUCommand(const std::vector<std::string>& args) {
-    GPUShell(mConsoleIn, mOut).RunShell();
+    GPUShell(mIn, mOut).RunShell();
 }

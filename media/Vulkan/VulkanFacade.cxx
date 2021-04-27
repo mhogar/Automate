@@ -34,8 +34,8 @@ void VulkanFacade::Init() {
     InitDeviceList();
 }
 
-Window* VulkanFacade::CreateWindow(int width, int height, const char* title) {
-    return new SDLWindow(width, height, title);
+PreviewWindow* VulkanFacade::CreatePreviewWindow() {
+    return new SDLWindow();
 }
 
 std::vector<GPUDeviceInfo> VulkanFacade::GetGPUDeviceList() {

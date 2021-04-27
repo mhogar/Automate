@@ -6,7 +6,7 @@ class VulkanFacade : public GraphicsFacade {
         ~VulkanFacade();
 
         void Init();
-        Window* CreateWindow(int width, int height, const char* title);
+        PreviewWindow* CreatePreviewWindow();
 
         virtual std::vector<GPUDeviceInfo> GetGPUDeviceList();
         virtual void SelectGPU(int index);

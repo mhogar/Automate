@@ -1,18 +1,19 @@
 #pragma once
 
-#include "Window.h"
+#include "PreviewWindow.h"
 #include <SDL2/SDL.h>
 
-class SDLWindow : public Window {
+class SDLWindow : public PreviewWindow {
     public:
-        SDLWindow(int width, int height, const char* title);
-        ~SDLWindow();
-
-        virtual void PollEvents();
-        virtual bool ShouldClose();
-        virtual void Close();
+        SDLWindow();
+        virtual ~SDLWindow();
     
+    protected:
+        virtual void CreateWindow(int width, int height, const char* title);
+        virtual void DestroyWindow();
+
+        virtual void Update();
+
     private:
-        bool mShouldClose;
         SDL_Window* mWindow;
 };

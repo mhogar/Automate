@@ -1,6 +1,5 @@
 #pragma once
 
-#include "ConsoleInput.h"
 #include <map>
 #include <functional>
 #include <iostream>
@@ -10,7 +9,7 @@
 class Shell {
     public:
         Shell(std::istream& in, std::ostream& out);
-        virtual ~Shell();
+        virtual ~Shell() {}
 
         void RunShell();
 
@@ -29,14 +28,12 @@ class Shell {
             int RequiredArgsCount();
         };
 
-        Shell(ConsoleInput* consoleIn, std::ostream& out);
-
         virtual void Update() = 0;
 
         std::ostream& Indent(int num);
-        bool HandleInput();
+        void HandleInput();
 
-        ConsoleInput* mConsoleIn;
+        std::istream& mIn;
         std::ostream& mOut;
 
         std::map<std::string, Command> mCommands;

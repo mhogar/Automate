@@ -7,7 +7,7 @@ file(CONFIGURE OUTPUT "${PROJECT_SOURCE_DIR}/media/Version.cxx"
         CONTENT "${VERSION_FILE_TMPL}"
         NEWLINE_STYLE UNIX)
 
-add_library(automate-media SHARED GraphicsFacade.cxx Version.cxx)
+add_library(automate-media SHARED GraphicsFacade.cxx PreviewWindow.cxx Version.cxx)
 set_target_properties(automate-media PROPERTIES
     VERSION ${LIB_CODE_VERSION})
 
