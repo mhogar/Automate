@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ActorAnimator.h"
+#include "Animators/ActorAnimator.h"
 
 class Animation {
     public:

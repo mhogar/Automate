@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Action.h"
-#include "ActorData.h"
+#include "Actors/ActorData.h"
 #include <glm/vec3.hpp>
 
 template <class T>

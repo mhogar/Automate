@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BoxData.h"
+#include "Actors/BoxData.h"
 
 class Actor;
 

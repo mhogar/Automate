@@ -1,4 +1,5 @@
 #include "VulkanFacade.h"
+#include "SDLWindow/SDLWindow.h"
 #include <stdexcept>
 #include <cstring>
 
@@ -16,16 +17,25 @@ GraphicsFacade* GraphicsFacade::CreateInstance() {
     return new VulkanFacade();
 }
 
-VulkanFacade::VulkanFacade() {
+VulkanFacade::~VulkanFacade() {
+    //vkDestroyDevice(mDevice, nullptr);
+    vkDestroyInstance(mVKInstance, nullptr);
+    SDL_Quit();
+}
+
+void VulkanFacade::Init() {
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        throw std::runtime_error("failed to init SDL");
+    }
+
     mSelectedDeviceIndex = -1;
 
     CreateInstance();
     InitDeviceList();
 }
 
-VulkanFacade::~VulkanFacade() {
-    //vkDestroyDevice(mDevice, nullptr);
-    vkDestroyInstance(mVKInstance, nullptr);
+PreviewWindow* VulkanFacade::CreatePreviewWindow() {
+    return new SDLWindow();
 }
 
 std::vector<GPUDeviceInfo> VulkanFacade::GetGPUDeviceList() {

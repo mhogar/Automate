@@ -7,11 +7,11 @@ file(CONFIGURE OUTPUT "${PROJECT_SOURCE_DIR}/interface/Version.cxx"
         CONTENT "${VERSION_FILE_TMPL}"
         NEWLINE_STYLE UNIX)
 
-add_library(automate-ui SHARED Shell.cxx ../Version.cxx)
+add_library(automate-ui SHARED ShellInterface.cxx ../Version.cxx)
 set_target_properties(automate-ui PROPERTIES
     VERSION ${LIB_CODE_VERSION})
 
-add_subdirectory(Commands)
+add_subdirectory(Shells)
 
-target_link_libraries(automate-ui PRIVATE commands)
+target_link_libraries(automate-ui PRIVATE shells)
 target_include_directories(automate-ui PUBLIC "${PROJECT_SOURCE_DIR}/interface" "${PROJECT_SOURCE_DIR}/include")

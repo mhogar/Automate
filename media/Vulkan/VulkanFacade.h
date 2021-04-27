@@ -3,8 +3,10 @@
 
 class VulkanFacade : public GraphicsFacade {
     public:
-        VulkanFacade();
         ~VulkanFacade();
+
+        void Init();
+        PreviewWindow* CreatePreviewWindow();
 
         virtual std::vector<GPUDeviceInfo> GetGPUDeviceList();
         virtual void SelectGPU(int index);
