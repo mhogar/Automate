@@ -19,3 +19,6 @@ class Channel {
         std::queue<T> mBuffer;
         std::mutex mMutex;
 };
+
+// list explict channel types
+template class Channel<std::string>;
