@@ -2,10 +2,6 @@
 #include "PreviewShell.h"
 #include "GPUShell.h"
 
-UserInterface* UserInterface::CreateInstance() {
-    return new BaseShell(std::cin, std::cout);
-}
-
 BaseShell::BaseShell(std::istream& in, std::ostream& out)
     : Shell(in, out)
 {
@@ -23,10 +19,6 @@ BaseShell::BaseShell(std::istream& in, std::ostream& out)
             }
         ),
     });
-}
-
-void BaseShell::MainLoop() {
-    RunShell();
 }
 
 void BaseShell::Update() {
