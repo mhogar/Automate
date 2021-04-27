@@ -3,10 +3,14 @@
 
 void Foo(const std::vector<std::string>& args) {}
 
-Shell::Shell(std::istream& in, std::ostream& out) 
-    : mIn(in), mOut(out)
+Shell::Shell(std::istream& in, std::ostream& out)
+    : Shell(new ConsoleInput(in), out) {}
+
+Shell::Shell(ConsoleInput* consoleIn, std::ostream& out) 
+    : mOut(out)
 {
     mShouldExit = false;
+    mConsoleIn = consoleIn;
 
     mCommands.insert({
         std::pair<std::string, Command>("help",
@@ -25,6 +29,10 @@ Shell::Shell(std::istream& in, std::ostream& out)
             }
         ),
     });
+}
+
+Shell::~Shell() {
+    delete mConsoleIn;
 }
 
 void Shell::RunShell() {
@@ -52,37 +60,39 @@ std::ostream& Shell::Indent(int num) {
     return mOut << "* ";
 }
 
-void Shell::HandleInput() {
-    // get the entered line
-    std::string line;
-    std::getline(mIn, line);
-
-    if (line.size() == 0) {
-        return;
+bool Shell::HandleInput() {
+    // check for console input
+    if (!mConsoleIn->HasInput()) {
+        return false;
     }
+    std::vector<std::string> lines = mConsoleIn->GetInput();
 
-    //-- parse the tokens --
-    std::stringstream lineStream(line);
-    std::vector<std::string> args;
+    for (const std::string& line : lines) {
+        //-- parse the tokens --
+        std::stringstream lineStream(line);
+        std::vector<std::string> args;
 
-    std::string token;
-    while(lineStream >> token) {
-        args.push_back(token);
-    }
+        std::string token;
+        while(lineStream >> token) {
+            args.push_back(token);
+        }
 
-    // lookup the command and execute it if it exists
-    auto itr = mCommands.find(args[0]);
-    if (itr != mCommands.end()) {
-        if (args.size() > itr->second.RequiredArgsCount()) {
-            itr->second.ExecuteFunc(args);
+        // lookup the command and execute it if it exists
+        auto itr = mCommands.find(args[0]);
+        if (itr != mCommands.end()) {
+            if (args.size() > itr->second.RequiredArgsCount()) {
+                itr->second.ExecuteFunc(args);
+            }
+            else {
+                Indent(1) << "Too few args. Use \"help " << args[0] << "\" for usage.\n";
+            }
         }
         else {
-            Indent(1) << "Too few args. Use \"help " << args[0] << "\" for usage.\n";
+            Indent(1) << "Command \"" << args[0] << "\" not found. Use \"help\" for command list.\n";
         }
     }
-    else {
-        Indent(1) << "Command \"" << args[0] << "\" not found. Use \"help\" for command list.\n";
-    }
+
+    return true;
 }
 
 void Shell::PrintCommandUsage(const std::string& name, const Command& command, bool printArgs) {

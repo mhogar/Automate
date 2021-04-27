@@ -1,10 +1,11 @@
 #include "PreviewShell.h"
 #include "GraphicsFacade.h"
 
-PreviewShell::PreviewShell(std::istream& in, std::ostream& out)
-    : Shell(in, out)
+PreviewShell::PreviewShell(ConsoleInput* consoleIn, std::ostream& out)
+    : Shell(consoleIn, out)
 {
     mWindow = GraphicsFacade::Instance()->CreateWindow(800, 600, "Automate Preview");
+    mOut << "preview > ";
 }
 
 PreviewShell::~PreviewShell() {
@@ -20,6 +21,7 @@ void PreviewShell::Update() {
         return;
     }
 
-    mOut << "preview > ";
-    HandleInput();
+    if (HandleInput()) {
+        mOut << "preview > ";
+    }
 }

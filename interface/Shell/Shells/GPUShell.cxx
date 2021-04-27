@@ -1,7 +1,7 @@
 #include "GPUShell.h"
 
-GPUShell::GPUShell(std::istream& in, std::ostream& out)
-    : Shell(in, out)
+GPUShell::GPUShell(ConsoleInput* consoleIn, std::ostream& out)
+    : Shell(consoleIn, out)
 {
     mGPUInfos = GraphicsFacade::Instance()->GetGPUDeviceList();
     mSelectedGPUIndex = GraphicsFacade::Instance()->GetSelectedGPUIndex();
@@ -23,11 +23,14 @@ GPUShell::GPUShell(std::istream& in, std::ostream& out)
             }
         ),
     });
+
+    mOut << "gpu > ";
 }
 
 void GPUShell::Update() {
-    mOut << "gpu > ";
-    HandleInput();
+    if (HandleInput()) {
+        mOut << "gpu > ";
+    }
 }
 
 void GPUShell::HandleListCommand(const std::vector<std::string>& args) {

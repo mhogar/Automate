@@ -5,7 +5,7 @@
 
 class GPUShell : public Shell {
     public:
-        GPUShell(std::istream& in, std::ostream& out);
+        GPUShell(ConsoleInput* consoleIn, std::ostream& out);
 
         virtual void Update();
 

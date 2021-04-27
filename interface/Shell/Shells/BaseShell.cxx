@@ -19,17 +19,21 @@ BaseShell::BaseShell(std::istream& in, std::ostream& out)
             }
         ),
     });
+
+    mOut << "> ";
 }
 
+
 void BaseShell::Update() {
-    mOut << "> ";
-    HandleInput();
+    if (HandleInput()) {
+        mOut << "> ";
+    }
 }
 
 void BaseShell::HandlePreviewCommand(const std::vector<std::string>& args) {
-    PreviewShell(mIn, mOut).RunShell();
+    PreviewShell(mConsoleIn, mOut).RunShell();
 }
 
 void BaseShell::HandleGPUCommand(const std::vector<std::string>& args) {
-    GPUShell(mIn, mOut).RunShell();
+    GPUShell(mConsoleIn, mOut).RunShell();
 }

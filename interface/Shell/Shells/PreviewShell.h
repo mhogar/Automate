@@ -5,7 +5,7 @@
 
 class PreviewShell : public Shell {
     public:
-        PreviewShell(std::istream& in, std::ostream& out);
+        PreviewShell(ConsoleInput* consoleIn, std::ostream& out);
         ~PreviewShell();
 
         virtual void Update();
