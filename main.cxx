@@ -1,6 +1,7 @@
-#include "GraphicsFacade.h"
+#include "MediaFacade.h"
 #include "UserInterface.h"
 #include "Version.h"
+#include <stdexcept>
 #include <string>
 #include <iostream>
 
@@ -24,14 +25,24 @@ int main(int argc, const char** argv) {
         return 0;
     }
 
-    // init and run the program
-    GraphicsFacade::Instance()->Init();
+    // init the media instance and catch any errors
+    try {
+        MediaFacade::Instance()->Init();
+    }
+    catch(const std::runtime_error& e) {
+        std::cerr << "Error initializing media: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    // run the program
     {
         UserInterface* ui = UserInterface::CreateInstance();
         ui->MainLoop();
         delete ui;
     }
-    GraphicsFacade::Dispose();
+    MediaFacade::Dispose();
+
+    return EXIT_SUCCESS;
 }
 
 std::ostream& indent() {

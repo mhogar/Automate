@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Shell.h"
-#include "GraphicsFacade.h"
+#include "MediaFacade.h"
 
 class GPUShell : public Shell {
     public:

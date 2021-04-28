@@ -1,8 +1,8 @@
-#include "GraphicsFacade.h"
+#include "MediaFacade.h"
 
-GraphicsFacade* GraphicsFacade::mInstance = nullptr;
+MediaFacade* MediaFacade::mInstance = nullptr;
 
-GraphicsFacade* GraphicsFacade::Instance() {
+MediaFacade* MediaFacade::Instance() {
     if (mInstance == nullptr) {
         mInstance = CreateInstance();
     }
@@ -10,7 +10,7 @@ GraphicsFacade* GraphicsFacade::Instance() {
     return mInstance;
 }
 
-void GraphicsFacade::Dispose() {
+void MediaFacade::Dispose() {
     if (mInstance != nullptr) {
         delete mInstance;
         mInstance = nullptr;

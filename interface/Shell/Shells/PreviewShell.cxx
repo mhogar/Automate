@@ -1,5 +1,5 @@
 #include "PreviewShell.h"
-#include "GraphicsFacade.h"
+#include "MediaFacade.h"
 
 const int PreviewShell::DEFAULT_WIDTH = 800;
 const int PreviewShell::DEFAULT_HEIGHT = 600;
@@ -8,7 +8,7 @@ const char* PreviewShell::TITLE = "Automate Preview";
 PreviewShell::PreviewShell(std::istream& in, std::ostream& out)
     : Shell(in, out)
 {
-    mWindow = GraphicsFacade::Instance()->CreatePreviewWindow();
+    mWindow = MediaFacade::Instance()->CreatePreviewWindow();
 
     mCommands.insert({
         std::pair<std::string, Command>("open",
