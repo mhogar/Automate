@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GPUFacade.h"
+#include "GPUSelector.h"
 #include "QueueFamilyIndices.h"
 #include <vulkan/vulkan.h>
 
@@ -10,11 +10,11 @@ struct GPUDevice {
     VkPhysicalDevice PhysicalDevice;
 };
 
-class VulkanGPUFacade : public GPUFacade {
+class VulkanGPUSelector : public GPUSelector {
     public:
-        VulkanGPUFacade(VkInstance instance, GPUDevice& device);
+        VulkanGPUSelector(VkInstance instance, GPUDevice& device);
 
-        virtual void Init();
+        virtual void QueryDeviceList();
 
         virtual std::vector<GPUDeviceInfo> GetGPUDeviceList();
         virtual void SelectGPU(int index);

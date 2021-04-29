@@ -4,12 +4,12 @@ PreviewWindow::PreviewWindow() {
     mWindowOpen = false;
 }
 
-void PreviewWindow::Open(int width, int height, const char* title) {
+void PreviewWindow::Open() {
     if (IsOpen()) {
         return;
     }
 
-    CreateWindow(width, height, title);
+    OpenWindow();
     mWindowOpen = true;
 
     mShouldQuit = false;
@@ -18,13 +18,20 @@ void PreviewWindow::Open(int width, int height, const char* title) {
             Update();
         }
 
-        DestroyWindow();
+        CloseWindow();
         mWindowOpen = false;
     });
 }
 
 void PreviewWindow::Close() {
+    if (!IsOpen()) {
+        return;
+    }
+
     mShouldQuit = true;
+    if (mThread.has_value()) {
+        mThread.value().join();
+    }
 }
 
 bool PreviewWindow::IsOpen() const {

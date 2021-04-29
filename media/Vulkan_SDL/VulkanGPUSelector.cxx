@@ -1,10 +1,10 @@
-#include "VulkanGPUFacade.h"
+#include "VulkanGPUSelector.h"
 #include <stdexcept>
 
-VulkanGPUFacade::VulkanGPUFacade(VkInstance instance, GPUDevice& device)
+VulkanGPUSelector::VulkanGPUSelector(VkInstance instance, GPUDevice& device)
     : mVKInstance(instance), mDeviceRef(device) {}
 
-void VulkanGPUFacade::Init() {
+void VulkanGPUSelector::QueryDeviceList() {
     //-- get all the graphics cards --
     uint32_t deviceCount = 0;
     vkEnumeratePhysicalDevices(mVKInstance, &deviceCount, nullptr);
@@ -14,6 +14,7 @@ void VulkanGPUFacade::Init() {
 
     // -- build the device structs and select a default --
     mDevices.clear();
+    mDevices.reserve(deviceCount);
     int defaultIndex = 0;
 
     for (int i = 0; i < deviceCount; i++) {
@@ -41,7 +42,7 @@ void VulkanGPUFacade::Init() {
     SelectGPU(defaultIndex);
 }
 
-std::vector<GPUDeviceInfo> VulkanGPUFacade::GetGPUDeviceList() {
+std::vector<GPUDeviceInfo> VulkanGPUSelector::GetGPUDeviceList() {
     std::vector<GPUDeviceInfo> infos;
     infos.reserve(mDevices.size());
 
@@ -52,16 +53,16 @@ std::vector<GPUDeviceInfo> VulkanGPUFacade::GetGPUDeviceList() {
     return infos;
 }
 
-void VulkanGPUFacade::SelectGPU(int index) {
+void VulkanGPUSelector::SelectGPU(int index) {
     mSelectedDeviceIndex = index;
     mDeviceRef = mDevices[index];
 }
 
-int VulkanGPUFacade::GetSelectedGPUIndex() {
+int VulkanGPUSelector::GetSelectedGPUIndex() {
     return mSelectedDeviceIndex;
 }
 
-QueueFamilyIndices VulkanGPUFacade::FindQueueFamilies(VkPhysicalDevice device) {
+QueueFamilyIndices VulkanGPUSelector::FindQueueFamilies(VkPhysicalDevice device) {
     QueueFamilyIndices indices;
 
     //-- get all the queue families --

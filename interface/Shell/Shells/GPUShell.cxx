@@ -3,7 +3,7 @@
 GPUShell::GPUShell(std::istream& in, std::ostream& out)
     : Shell(in, out)
 {
-    GPUFacade* gpuFacade = MediaFacade::Instance()->GetGPUFacade();
+    GPUSelector* gpuFacade = MediaFacade::Instance()->GetGPUFacade();
     mGPUInfos = gpuFacade->GetGPUDeviceList();
     mSelectedGPUIndex = gpuFacade->GetSelectedGPUIndex();
 

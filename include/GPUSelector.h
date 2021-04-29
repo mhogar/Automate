@@ -7,11 +7,11 @@ struct GPUDeviceInfo {
     std::string Name;
 };
 
-class GPUFacade {
+class GPUSelector {
     public:
-        virtual ~GPUFacade() {}
+        virtual ~GPUSelector() {}
 
-        virtual void Init() {}
+        virtual void QueryDeviceList() = 0;
 
         virtual std::vector<GPUDeviceInfo> GetGPUDeviceList() = 0;
         virtual void SelectGPU(int index) = 0;

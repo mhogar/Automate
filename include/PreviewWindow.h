@@ -8,20 +8,19 @@ class PreviewWindow {
         PreviewWindow();
         virtual ~PreviewWindow() {}
 
-        void Open(int width, int height, const char* title);
+        void Open();
         void Close();
 
         bool IsOpen() const;
 
     protected:
-        virtual void CreateWindow(int width, int height, const char* title) = 0;
-        virtual void DestroyWindow() = 0;
-
+        virtual void OpenWindow() = 0;
+        virtual void CloseWindow() = 0;
         virtual void Update() = 0;
 
-        std::optional<std::thread> mThread;
         bool mShouldQuit;
 
     private:
+        std::optional<std::thread> mThread;
         bool mWindowOpen;
 };

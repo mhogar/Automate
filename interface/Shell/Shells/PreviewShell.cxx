@@ -1,10 +1,6 @@
 #include "PreviewShell.h"
 #include "MediaFacade.h"
 
-const int PreviewShell::DEFAULT_WIDTH = 800;
-const int PreviewShell::DEFAULT_HEIGHT = 600;
-const char* PreviewShell::TITLE = "Automate Preview";
-
 PreviewShell::PreviewShell(std::istream& in, std::ostream& out)
     : Shell(in, out)
 {
@@ -41,7 +37,7 @@ void PreviewShell::HandleOpenCommand(const std::vector<std::string>& args) {
         return;
     }
 
-    mWindow->Open(DEFAULT_WIDTH, DEFAULT_HEIGHT, TITLE);
+    mWindow->Open();
 }
 
 void PreviewShell::HandleCloseCommand(const std::vector<std::string>& args) {

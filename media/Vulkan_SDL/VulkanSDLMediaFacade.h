@@ -1,6 +1,7 @@
 #include "MediaFacade.h"
-#include "VulkanGPUFacade.h"
+#include "VulkanGPUSelector.h"
 #include <vulkan/vulkan.h>
+#include <SDL2/SDL.h>
 #include <optional>
 
 class VulkanSDLMediaFacade : public MediaFacade {
@@ -9,15 +10,21 @@ class VulkanSDLMediaFacade : public MediaFacade {
 
         void Init();
 
-        virtual GPUFacade* GetGPUFacade();
+        virtual GPUSelector* GetGPUFacade();
         virtual PreviewWindow* CreatePreviewWindow();
 
     private:
         void CreateInstance();
+        //void CreateSurface();
+
         bool CheckValidationLayerSupport();
 
-        VulkanGPUFacade* mGPUFacade;
+        VulkanGPUSelector* mGPUSelector;
 
         VkInstance mVKInstance;
+
+        SDL_Window* mWindow;
+        VkSurfaceKHR mSurface;
+
         GPUDevice mGPUDevice;
 };

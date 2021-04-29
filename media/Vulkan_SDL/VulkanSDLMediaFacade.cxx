@@ -1,5 +1,6 @@
 #include "VulkanSDLMediaFacade.h"
-#include "SDLWindow.h"
+#include "SDLPreviewWindow.h"
+#include <SDL2/SDL_vulkan.h>
 #include <stdexcept>
 #include <cstring>
 
@@ -18,8 +19,11 @@ MediaFacade* MediaFacade::CreateInstance() {
 }
 
 VulkanSDLMediaFacade::~VulkanSDLMediaFacade() {
-    delete mGPUFacade;
+    delete mGPUSelector;
+    //vkDestroySurfaceKHR(mVKInstance, mSurface, nullptr);
     vkDestroyInstance(mVKInstance, nullptr);
+
+    SDL_DestroyWindow(mWindow);
     SDL_Quit();
 }
 
@@ -27,19 +31,21 @@ void VulkanSDLMediaFacade::Init() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         throw std::runtime_error("failed to init SDL");
     }
+    mWindow = SDL_CreateWindow("Automate", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_VULKAN | SDL_WINDOW_HIDDEN);
 
     CreateInstance();
+    //CreateSurface();
 
-    mGPUFacade = new VulkanGPUFacade(mVKInstance, mGPUDevice);
-    mGPUFacade->Init();
+    mGPUSelector = new VulkanGPUSelector(mVKInstance, mGPUDevice);
+    mGPUSelector->QueryDeviceList();
 }
 
-GPUFacade* VulkanSDLMediaFacade::GetGPUFacade() {
-    return mGPUFacade;
+GPUSelector* VulkanSDLMediaFacade::GetGPUFacade() {
+    return mGPUSelector;
 }
 
 PreviewWindow* VulkanSDLMediaFacade::CreatePreviewWindow() {
-    return new SDLWindow();
+    return new SDLPreviewWindow(mWindow);
 }
 
 void VulkanSDLMediaFacade::CreateInstance() {
@@ -56,18 +62,22 @@ void VulkanSDLMediaFacade::CreateInstance() {
     appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.apiVersion = VK_API_VERSION_1_1;
 
-    // choose the required extensions
-    const std::array<const char*, 1> extensionNames = {
-        VK_KHR_SURFACE_EXTENSION_NAME,
-    };
+    //-- get the required SDL extensions --
+    uint sdlExtentionCount;
+    SDL_Vulkan_GetInstanceExtensions(mWindow, &sdlExtentionCount, nullptr);
+
+    std::vector<const char*> sdlExtentionNames;
+    sdlExtentionNames.resize(sdlExtentionCount);
+    
+    SDL_Vulkan_GetInstanceExtensions(mWindow, &sdlExtentionCount, sdlExtentionNames.data());
 
     //-- tell Vulkan which global extensions and validation layers to use --
     VkInstanceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.pApplicationInfo = &appInfo;
 
-    createInfo.enabledExtensionCount = extensionNames.size();
-    createInfo.ppEnabledExtensionNames = extensionNames.data();
+    createInfo.enabledExtensionCount = sdlExtentionCount;
+    createInfo.ppEnabledExtensionNames = sdlExtentionNames.data();
 
     if (gEnableValidationLayers) {
         createInfo.enabledLayerCount = static_cast<uint32_t>(gValidationLayers.size());

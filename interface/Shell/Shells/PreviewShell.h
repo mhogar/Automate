@@ -15,8 +15,4 @@ class PreviewShell : public Shell {
         void HandleCloseCommand(const std::vector<std::string>& args);
 
         PreviewWindow* mWindow;
-
-        static const int DEFAULT_WIDTH;
-        static const int DEFAULT_HEIGHT;
-        static const char* TITLE;
 };

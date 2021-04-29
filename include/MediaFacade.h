@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GPUFacade.h"
+#include "GPUSelector.h"
 #include "PreviewWindow.h"
 
 class MediaFacade {
@@ -9,7 +9,7 @@ class MediaFacade {
 
         virtual void Init() {}
 
-        virtual GPUFacade* GetGPUFacade() = 0;
+        virtual GPUSelector* GetGPUFacade() = 0;
         virtual PreviewWindow* CreatePreviewWindow() = 0;
 
         static MediaFacade* Instance();
