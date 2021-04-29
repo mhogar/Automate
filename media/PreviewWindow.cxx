@@ -11,7 +11,13 @@ void PreviewWindow::Open() {
 
     OpenWindow();
     mWindowOpen = true;
+    
+    // join the thread first if one was running
+    if (mThread.has_value()) {
+        mThread.value().join();
+    }
 
+    // start a new thread for window updates
     mShouldQuit = false;
     mThread = std::thread([this]() {
         while (!mShouldQuit) {
@@ -29,9 +35,8 @@ void PreviewWindow::Close() {
     }
 
     mShouldQuit = true;
-    if (mThread.has_value()) {
-        mThread.value().join();
-    }
+    mThread.value().join();
+    mThread.reset();
 }
 
 bool PreviewWindow::IsOpen() const {

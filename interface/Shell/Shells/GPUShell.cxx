@@ -3,9 +3,9 @@
 GPUShell::GPUShell(std::istream& in, std::ostream& out)
     : Shell(in, out)
 {
-    GPUSelector* gpuFacade = MediaFacade::Instance()->GetGPUFacade();
-    mGPUInfos = gpuFacade->GetGPUDeviceList();
-    mSelectedGPUIndex = gpuFacade->GetSelectedGPUIndex();
+    GPUSelector* gpuSelector = MediaFacade::Instance()->GetGPUSelector();
+    mGPUInfos = gpuSelector->GetGPUDeviceList();
+    mSelectedGPUIndex = gpuSelector->GetSelectedGPUIndex();
 
     mCommands.insert({
         std::pair<std::string, Command>("list",
@@ -50,7 +50,7 @@ void GPUShell::HandleSelectCommand(const std::vector<std::string>& args) {
     }
     else {
         mSelectedGPUIndex = index;
-        MediaFacade::Instance()->GetGPUFacade()->SelectGPU(index);
+        MediaFacade::Instance()->GetGPUSelector()->SelectGPU(index);
         Indent(1) << "selected \"" << mGPUInfos[index].Name << "\"\n";
     }
 }

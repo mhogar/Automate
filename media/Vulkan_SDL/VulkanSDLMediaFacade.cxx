@@ -20,7 +20,7 @@ MediaFacade* MediaFacade::CreateInstance() {
 
 VulkanSDLMediaFacade::~VulkanSDLMediaFacade() {
     delete mGPUSelector;
-    //vkDestroySurfaceKHR(mVKInstance, mSurface, nullptr);
+    vkDestroySurfaceKHR(mVKInstance, mSurface, nullptr);
     vkDestroyInstance(mVKInstance, nullptr);
 
     SDL_DestroyWindow(mWindow);
@@ -34,13 +34,13 @@ void VulkanSDLMediaFacade::Init() {
     mWindow = SDL_CreateWindow("Automate", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_VULKAN | SDL_WINDOW_HIDDEN);
 
     CreateInstance();
-    //CreateSurface();
+    CreateSurface();
 
     mGPUSelector = new VulkanGPUSelector(mVKInstance, mGPUDevice);
     mGPUSelector->QueryDeviceList();
 }
 
-GPUSelector* VulkanSDLMediaFacade::GetGPUFacade() {
+GPUSelector* VulkanSDLMediaFacade::GetGPUSelector() {
     return mGPUSelector;
 }
 
@@ -68,7 +68,7 @@ void VulkanSDLMediaFacade::CreateInstance() {
 
     std::vector<const char*> sdlExtentionNames;
     sdlExtentionNames.resize(sdlExtentionCount);
-    
+
     SDL_Vulkan_GetInstanceExtensions(mWindow, &sdlExtentionCount, sdlExtentionNames.data());
 
     //-- tell Vulkan which global extensions and validation layers to use --
@@ -89,6 +89,12 @@ void VulkanSDLMediaFacade::CreateInstance() {
     // create the instance
     if (vkCreateInstance(&createInfo, nullptr, &mVKInstance) != VK_SUCCESS) {
         throw std::runtime_error("failed to create the vulkan instance");
+    }
+}
+
+void VulkanSDLMediaFacade::CreateSurface() {
+    if (SDL_Vulkan_CreateSurface(mWindow, mVKInstance, &mSurface) != SDL_TRUE) {
+        throw std::runtime_error("failed to create vulkan window surface");
     }
 }
 

@@ -9,7 +9,7 @@ class MediaFacade {
 
         virtual void Init() {}
 
-        virtual GPUSelector* GetGPUFacade() = 0;
+        virtual GPUSelector* GetGPUSelector() = 0;
         virtual PreviewWindow* CreatePreviewWindow() = 0;
 
         static MediaFacade* Instance();

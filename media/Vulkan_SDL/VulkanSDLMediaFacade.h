@@ -10,12 +10,12 @@ class VulkanSDLMediaFacade : public MediaFacade {
 
         void Init();
 
-        virtual GPUSelector* GetGPUFacade();
+        virtual GPUSelector* GetGPUSelector();
         virtual PreviewWindow* CreatePreviewWindow();
 
     private:
         void CreateInstance();
-        //void CreateSurface();
+        void CreateSurface();
 
         bool CheckValidationLayerSupport();
 
