@@ -58,6 +58,13 @@ void GPUShell::HandleSelectCommand(const std::vector<std::string>& args) {
 void GPUShell::PrintGPUList() {
     for (int i = 0; i < mGPUInfos.size(); i++) {
         Indent(1) << i << ": " << mGPUInfos[i].Name;
-        mOut << (i == mSelectedGPUIndex ? " <- selected\n" : "\n");
+        
+        if (mGPUInfos[i].Recommended) {
+            mOut << " (recommended)";
+        }
+        if (i == mSelectedGPUIndex) {
+            mOut << " <- selected";
+        }
+        mOut << "\n";
     }
 }

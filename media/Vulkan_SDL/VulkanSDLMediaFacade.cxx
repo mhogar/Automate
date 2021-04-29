@@ -3,6 +3,7 @@
 #include <SDL2/SDL_vulkan.h>
 #include <stdexcept>
 #include <cstring>
+#include <iostream>
 
 const std::vector<const char*> gValidationLayers = {
     "VK_LAYER_KHRONOS_validation"
@@ -36,7 +37,7 @@ void VulkanSDLMediaFacade::Init() {
     CreateInstance();
     CreateSurface();
 
-    mGPUSelector = new VulkanGPUSelector(mVKInstance, mGPUDevice);
+    mGPUSelector = new VulkanGPUSelector(mVKInstance, mSurface, mGPUDevice);
     mGPUSelector->QueryDeviceList();
 }
 

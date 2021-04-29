@@ -5,6 +5,7 @@
 
 struct GPUDeviceInfo {
     std::string Name;
+    bool Recommended;
 };
 
 class GPUSelector {

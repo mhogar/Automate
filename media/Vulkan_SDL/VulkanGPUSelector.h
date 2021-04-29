@@ -12,7 +12,7 @@ struct GPUDevice {
 
 class VulkanGPUSelector : public GPUSelector {
     public:
-        VulkanGPUSelector(VkInstance instance, GPUDevice& device);
+        VulkanGPUSelector(VkInstance instance, VkSurfaceKHR surface, GPUDevice& device);
 
         virtual void QueryDeviceList();
 
@@ -22,8 +22,10 @@ class VulkanGPUSelector : public GPUSelector {
 
     private:
         QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device);
+        int RateDevice(const VkPhysicalDeviceProperties& deviceProperties, const QueueFamilyIndices& indices);
 
         VkInstance mVKInstance;
+        VkSurfaceKHR mSurface;
 
         std::vector<GPUDevice> mDevices;
         int mSelectedDeviceIndex;
