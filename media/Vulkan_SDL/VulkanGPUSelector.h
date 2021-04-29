@@ -14,20 +14,20 @@ class VulkanGPUSelector : public GPUSelector {
     public:
         VulkanGPUSelector(VkInstance instance, VkSurfaceKHR surface, GPUDevice& device);
 
+        virtual void SelectGPU(int index);
+
         virtual void QueryDeviceList();
 
+        virtual GPUDeviceInfo GetSeletedDeviceInfo();
         virtual std::vector<GPUDeviceInfo> GetGPUDeviceList();
-        virtual void SelectGPU(int index);
-        virtual int GetSelectedGPUIndex();
 
     private:
         QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device);
-        int RateDevice(const VkPhysicalDeviceProperties& deviceProperties, const QueueFamilyIndices& indices);
+        int RateDevice(const GPUDevice& device, const VkPhysicalDeviceProperties& deviceProperties);
 
         VkInstance mVKInstance;
         VkSurfaceKHR mSurface;
 
         std::vector<GPUDevice> mDevices;
-        int mSelectedDeviceIndex;
         GPUDevice& mDeviceRef;
 };

@@ -28,7 +28,11 @@ void BaseShell::Update() {
 }
 
 void BaseShell::HandlePreviewCommand(const std::vector<std::string>& args) {
-    PreviewShell(mIn, mOut).RunShell();
+    try {
+        PreviewShell(mIn, mOut).RunShell();
+    } catch(const std::runtime_error& e) {
+        std::cerr << "error running preview: " << e.what() << std::endl;
+    }
 }
 
 void BaseShell::HandleGPUCommand(const std::vector<std::string>& args) {

@@ -1,9 +1,14 @@
 #include "PreviewShell.h"
 #include "MediaFacade.h"
+#include <stdexcept>
 
 PreviewShell::PreviewShell(std::istream& in, std::ostream& out)
     : Shell(in, out)
 {
+    if (!MediaFacade::Instance()->GetGPUSelector()->GetSeletedDeviceInfo().SupportsFeatures(FeatureSupportFlags::PREVIEW)) {
+        throw std::runtime_error("preview not supported by selected GPU. Run \"gpu\" to view options");
+    }
+
     mWindow = MediaFacade::Instance()->CreatePreviewWindow();
 
     mCommands.insert({

@@ -4,6 +4,11 @@
 VulkanGPUSelector::VulkanGPUSelector(VkInstance instance, VkSurfaceKHR surface, GPUDevice& device)
     : mVKInstance(instance), mSurface(surface), mDeviceRef(device) {}
 
+void VulkanGPUSelector::SelectGPU(int index) {
+    GPUSelector::SelectGPU(index);
+    mDeviceRef = mDevices[index];
+}
+
 void VulkanGPUSelector::QueryDeviceList() {
     //-- get all the graphics cards --
     uint32_t deviceCount = 0;
@@ -22,19 +27,26 @@ void VulkanGPUSelector::QueryDeviceList() {
     for (int i = 0; i < deviceCount; i++) {
         const VkPhysicalDevice device = devices[i];
 
+        // -- get the queue indices and set support flags based on availble queues --
+        QueueFamilyIndices indices = FindQueueFamilies(device);
+        uint8_t supportFlags = 0;
+
+        if (indices.GraphicsFamily.has_value() && indices.PresentFamily.has_value()) {
+            supportFlags |= FeatureSupportFlags::PREVIEW;
+        }
+
+        // -- get device properties and create device struct --
         VkPhysicalDeviceProperties deviceProperties;
         vkGetPhysicalDeviceProperties(device, &deviceProperties);
 
-        QueueFamilyIndices indices = FindQueueFamilies(device);
-
         mDevices.push_back({
-            { deviceProperties.deviceName, false },
+            { deviceProperties.deviceName, false, supportFlags },
             indices,
             device,
         });
 
         // choose default with highest score
-        int score = RateDevice(deviceProperties, indices);
+        int score = RateDevice(mDevices[i], deviceProperties);
         if (score > highestScore) {
             highestScore = score;
             defaultIndex = 0;
@@ -49,6 +61,10 @@ void VulkanGPUSelector::QueryDeviceList() {
     SelectGPU(defaultIndex);
 }
 
+GPUDeviceInfo VulkanGPUSelector::GetSeletedDeviceInfo() {
+    return mDevices[mSelectedDeviceIndex].Info;
+}
+
 std::vector<GPUDeviceInfo> VulkanGPUSelector::GetGPUDeviceList() {
     std::vector<GPUDeviceInfo> infos;
     infos.reserve(mDevices.size());
@@ -58,15 +74,6 @@ std::vector<GPUDeviceInfo> VulkanGPUSelector::GetGPUDeviceList() {
     }
 
     return infos;
-}
-
-void VulkanGPUSelector::SelectGPU(int index) {
-    mSelectedDeviceIndex = index;
-    mDeviceRef = mDevices[index];
-}
-
-int VulkanGPUSelector::GetSelectedGPUIndex() {
-    return mSelectedDeviceIndex;
 }
 
 QueueFamilyIndices VulkanGPUSelector::FindQueueFamilies(VkPhysicalDevice device) {
@@ -102,8 +109,10 @@ QueueFamilyIndices VulkanGPUSelector::FindQueueFamilies(VkPhysicalDevice device)
     return indices;
 }
 
-int VulkanGPUSelector::RateDevice(const VkPhysicalDeviceProperties& deviceProperties, const QueueFamilyIndices& indices) {
+int VulkanGPUSelector::RateDevice(const GPUDevice& device, const VkPhysicalDeviceProperties& deviceProperties) {
     int score = 0;
+
+    // TODO: prefer gpu that supports the most features
 
     // prefer a discrete graphics card
     if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) {
@@ -111,7 +120,7 @@ int VulkanGPUSelector::RateDevice(const VkPhysicalDeviceProperties& deviceProper
     }
 
     // prefer that graphics and presentation share a queue family
-    if (indices.GraphicsFamily == indices.PresentFamily) {
+    if (device.Indices.GraphicsFamily == device.Indices.PresentFamily) {
         score += 100;
     }
 
