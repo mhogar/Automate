@@ -6,7 +6,7 @@
 class PreviewWindow {
     public:
         PreviewWindow();
-        virtual ~PreviewWindow();
+        virtual ~PreviewWindow() {}
 
         void Open(int width, int height, const char* title);
         void Close();
@@ -19,9 +19,9 @@ class PreviewWindow {
 
         virtual void Update() = 0;
 
+        std::optional<std::thread> mThread;
         bool mShouldQuit;
 
     private:
-        std::optional<std::thread> mThread;
         bool mWindowOpen;
 };

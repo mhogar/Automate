@@ -4,13 +4,6 @@ PreviewWindow::PreviewWindow() {
     mWindowOpen = false;
 }
 
-PreviewWindow::~PreviewWindow() {
-    Close();
-    if (mThread.has_value()) {
-        mThread.value().join();
-    }
-}
-
 void PreviewWindow::Open(int width, int height, const char* title) {
     if (IsOpen()) {
         return;

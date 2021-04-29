@@ -5,7 +5,10 @@ SDLWindow::SDLWindow() {
 }
 
 SDLWindow::~SDLWindow() {
-    //Close();
+    Close();
+    if (mThread.has_value()) {
+        mThread.value().join();
+    }
 }
 
 void SDLWindow::CreateWindow(int width, int height, const char* title) {
