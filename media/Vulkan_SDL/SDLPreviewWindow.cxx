@@ -1,12 +1,14 @@
 #include "SDLPreviewWindow.h"
 
-SDLPreviewWindow::SDLPreviewWindow(SDL_Window* window) {
-    mWindow = window;
+SDLPreviewWindow::SDLPreviewWindow(SDL_Window* window, VulkanPreviewRenderer* renderer) 
+    : mWindow(window), mRenderer(renderer)
+{
     Open();
 }
 
 SDLPreviewWindow::~SDLPreviewWindow() {
     Close();
+    delete mRenderer;
 }
 
 void SDLPreviewWindow::OpenWindow() {

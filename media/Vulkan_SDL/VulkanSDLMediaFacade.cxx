@@ -46,7 +46,7 @@ GPUSelector* VulkanSDLMediaFacade::GetGPUSelector() {
 }
 
 PreviewWindow* VulkanSDLMediaFacade::CreatePreviewWindow() {
-    return new SDLPreviewWindow(mWindow);
+    return new SDLPreviewWindow(mWindow, new VulkanPreviewRenderer(mVKInstance, mSurface, mGPUDevice.PhysicalDevice, mGPUDevice.Indices));
 }
 
 void VulkanSDLMediaFacade::CreateInstance() {
