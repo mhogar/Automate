@@ -1,0 +1,45 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "Action",
+"language": "GDScript",
+"path": "res://Kits/Base/Actions/Action.gd"
+}, {
+"base": "Node",
+"class": "Sequence",
+"language": "GDScript",
+"path": "res://Kits/Base/Actions/Sequence.gd"
+}, {
+"base": "Action",
+"class": "TweenAction",
+"language": "GDScript",
+"path": "res://Kits/Base/Actions/Tweens/TweenAction.gd"
+} ]
+_global_script_class_icons={
+"Action": "",
+"Sequence": "",
+"TweenAction": ""
+}
+
+[application]
+
+config/name="Automate GoDot"
+run/main_scene="res://Test.tscn"
+config/icon="res://icon.png"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

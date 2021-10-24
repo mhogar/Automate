@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Kits/Base/Actors/Containers/Container.tscn" type="PackedScene" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Kits/Base/Actors/Texture.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Kits/Base/Actions/Tweens/Fade.tscn" type="PackedScene" id=4]
+
+[node name="Test" instance=ExtResource( 1 )]
+is_root = true
+
+[node name="Logo" parent="Elements" index="0" instance=ExtResource( 3 )]
+position = Vector2( 528.68, 290.718 )
+texture = ExtResource( 2 )
+
+[node name="Fade" parent="Sequence" index="0" instance=ExtResource( 4 )]
+duration = 0.5
+actor_path = NodePath("../../Elements/Logo")
+displacement = Vector2( 0, -20 )
