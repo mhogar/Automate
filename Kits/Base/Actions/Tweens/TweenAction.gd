@@ -2,7 +2,6 @@ extends Action
 class_name TweenAction
 
 export var duration : float = 1.0
-export var inverted : bool = false
 
 export(NodePath) var actor_path
 onready var actor : Node2D = get_node(actor_path)
