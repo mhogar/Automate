@@ -1,11 +1,17 @@
-extends Node
+extends Action
 class_name Sequence
 
-signal completed
+var actions : Array
 
 var next_action : int
 var active_count : int
 var is_blocked : bool
+
+
+func _ready():
+	actions = get_children()
+	print('sequence')
+
 
 func start():
 	next_action = 0
@@ -15,16 +21,17 @@ func start():
 	start_next()
 
 
-func start_next() -> bool:
+func start_next():
 	while !is_blocked:
-		if next_action >= get_child_count():
-			return false
+		if next_action >= actions.size():
+			emit_signal("completed")
+			return
 		
 		# get next action
-		var action : Action = get_children()[next_action]
+		var action : Action = actions[next_action]
 		next_action += 1
 		
-		# skip action is enabled
+		# skip action is not enabled
 		if !action.is_enabled:
 			continue
 		
@@ -35,8 +42,6 @@ func start_next() -> bool:
 		# increment counts
 		active_count += 1
 		is_blocked = action.is_blocking
-	
-	return true
 
 
 func _on_completed(action : Action):
@@ -45,7 +50,4 @@ func _on_completed(action : Action):
 	if action.is_blocking:
 		is_blocked = false
 	
-	# start next action(s) and mark as completed if no more
-	if !start_next():
-		emit_signal("completed")
-		
+	start_next()

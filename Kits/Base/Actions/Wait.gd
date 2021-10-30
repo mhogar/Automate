@@ -11,7 +11,8 @@ func _ready():
 
 
 func _process(delta):
-	if !started: return
+	if !started:
+		return
 	
 	# check less than or one to account for self
 	if sequence.active_count <= 1:
