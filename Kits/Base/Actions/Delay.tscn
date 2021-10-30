@@ -4,6 +4,7 @@
 
 [node name="Delay" type="Node"]
 script = ExtResource( 1 )
+is_blocking = true
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

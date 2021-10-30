@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Kits/Base/Actors/Containers/Container.tscn" type="PackedScene" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/PixelAE-Bold.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Kits/Base/Actors/Text.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Kits/Base/Actions/Tweens/Fades/FadeOut.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Kits/Base/Actions/Wait.tscn" type="PackedScene" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -25,25 +26,24 @@ texture = ExtResource( 2 )
 position = Vector2( 137.948, 302.059 )
 
 [node name="Label" parent="Actors/Text" index="0"]
-margin_right = 807.0
+margin_right = 811.0
 custom_fonts/font = SubResource( 1 )
 text = "User Management and Authentication Micro-Service"
 
 [node name="FadeIn" parent="Sequence" index="0" instance=ExtResource( 4 )]
-duration = 0.5
 actor_path = NodePath("../../Actors/Texture")
 displacement = Vector2( 0, -20 )
 
-[node name="Delay" parent="Sequence" index="1" instance=ExtResource( 5 )]
-duration = 0.5
-
-[node name="FadeIn2" parent="Sequence" index="2" instance=ExtResource( 4 )]
+[node name="FadeIn2" parent="Sequence" index="1" instance=ExtResource( 4 )]
 duration = 0.5
 actor_path = NodePath("../../Actors/Text")
 displacement = Vector2( 0, -20 )
 
-[node name="Delay2" parent="Sequence" index="3" instance=ExtResource( 5 )]
+[node name="Delay2" parent="Sequence" index="2" instance=ExtResource( 5 )]
+is_enabled = false
 duration = 2.0
+
+[node name="Wait" parent="Sequence" index="3" instance=ExtResource( 9 )]
 
 [node name="FadeOut" parent="Sequence" index="4" instance=ExtResource( 8 )]
 duration = 0.5
