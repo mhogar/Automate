@@ -65,9 +65,14 @@ _global_script_classes=[ {
 "path": "res://Kits/Base/Actions/Sequences/SequenceRef.gd"
 }, {
 "base": "Actor",
+"class": "SplitStringActor",
+"language": "GDScript",
+"path": "res://Kits/Base/Actors/Text/SplitString.gd"
+}, {
+"base": "Actor",
 "class": "TextActor",
 "language": "GDScript",
-"path": "res://Kits/Base/Actors/Text.gd"
+"path": "res://Kits/Base/Actors/Text/Text.gd"
 }, {
 "base": "Actor",
 "class": "TextureActor",
@@ -96,6 +101,7 @@ _global_script_class_icons={
 "FadeOutAction": "",
 "Sequence": "",
 "SequenceRef": "",
+"SplitStringActor": "",
 "TextActor": "",
 "TextureActor": "",
 "TweenAction": "",

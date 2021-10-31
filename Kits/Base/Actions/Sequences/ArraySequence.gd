@@ -10,22 +10,17 @@ onready var action : Action = get_child(0)
 
 
 func _ready():
-	# create the sequence
-	actions.clear()
-	for i in actors.size():
-		add_action(action.duplicate(), actors[i])
-		
-		if i != actors.size()-1:
-			add_delay_action()
+	for i in actors.size()-1:
+		add_delay_action()
+		add_action(action.duplicate(), actors[i+1])
 	
-	# remove template action
-	action.queue_free()
+	action.actor = actors[0]
 
 
 func add_action(action : Action, actor: Actor):
 	if actor != null:
 		action.actor_path = actor.get_path()
-	
+		
 	actions.append(action)
 	add_child(action)
 
