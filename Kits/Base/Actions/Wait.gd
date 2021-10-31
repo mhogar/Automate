@@ -1,4 +1,5 @@
 extends Action
+class_name WaitAction
 
 onready var sequence : Sequence
 

@@ -1,16 +1,11 @@
 extends Action
 class_name Sequence
 
-var actions : Array
+onready var actions : Array = get_children()
 
 var next_action : int
 var active_count : int
 var is_blocked : bool
-
-
-func _ready():
-	actions = get_children()
-	print('sequence')
 
 
 func start():
@@ -24,7 +19,7 @@ func start():
 func start_next():
 	while !is_blocked:
 		if next_action >= actions.size():
-			emit_signal("completed")
+			check_completed()
 			return
 		
 		# get next action
@@ -42,6 +37,11 @@ func start_next():
 		# increment counts
 		active_count += 1
 		is_blocked = action.is_blocking
+
+
+func check_completed():
+	if active_count <= 0:
+		emit_signal("completed")
 
 
 func _on_completed(action : Action):
