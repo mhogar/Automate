@@ -37,16 +37,13 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 0.0
-margin_top = 0.0
+margin_top = 30.0
 margin_right = 1024.0
-margin_bottom = 153.0
+margin_bottom = 183.0
 rect_min_size = Vector2( 500, 0 )
 custom_fonts/font = SubResource( 1 )
 text = "User Management and Authetication Micro-Service"
 start_hidden = true
-
-[node name="Sequence" parent="." index="1"]
-auto_run = true
 
 [node name="FadeIn" parent="Sequence" index="0" instance=ExtResource( 13 )]
 is_blocking = true
