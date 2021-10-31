@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Kits/Base/Actors/Containers/Container.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Kits/Base/Actions/Delay.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Kits/Base/Actions/Tweens/Fades/FadeOut.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Kits/Base/Actors/Texture.tscn" type="PackedScene" id=7]
+[ext_resource path="res://icon.png" type="Texture" id=11]
+[ext_resource path="res://Kits/Base/Actions/Tweens/Fades/FadeIn.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Kits/Base/Actors/Text.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Kits/Base/Actions/Sequences/ArraySequence.tscn" type="PackedScene" id=16]
+
+[node name="Intro" instance=ExtResource( 1 )]
+
+[node name="Texture" parent="Actors" index="0" instance=ExtResource( 7 )]
+position = Vector2( 517.305, 164.111 )
+scale = Vector2( 1.81758, 1.81758 )
+texture = ExtResource( 11 )
+start_hidden = true
+
+[node name="Text" type="Node2D" parent="Actors" index="1"]
+position = Vector2( -31.7839, -9.53519 )
+
+[node name="Text" parent="Actors/Text" index="0" instance=ExtResource( 15 )]
+position = Vector2( 219.527, 302.059 )
+start_hidden = true
+
+[node name="Text3" parent="Actors/Text" index="1" instance=ExtResource( 15 )]
+position = Vector2( 368.911, 305.237 )
+start_hidden = true
+
+[node name="Text2" parent="Actors/Text" index="2" instance=ExtResource( 15 )]
+position = Vector2( 509.82, 305.237 )
+start_hidden = true
+
+[node name="Text5" parent="Actors/Text" index="3" instance=ExtResource( 15 )]
+position = Vector2( 664.501, 307.356 )
+start_hidden = true
+
+[node name="Text4" parent="Actors/Text" index="4" instance=ExtResource( 15 )]
+position = Vector2( 894.405, 308.416 )
+start_hidden = true
+
+[node name="FadeIn" parent="Sequence" index="0" instance=ExtResource( 13 )]
+is_blocking = true
+transition_type = 10
+actor_path = NodePath("../../Actors/Texture")
+displacement = Vector2( 0, -20 )
+
+[node name="ArraySequence" parent="Sequence" index="1" instance=ExtResource( 16 )]
+is_blocking = true
+delay = 0.45
+actors_path = NodePath("../../Actors/Text")
+
+[node name="FadeIn" parent="Sequence/ArraySequence" index="0" instance=ExtResource( 13 )]
+duration = 0.45
+transition_type = 10
+displacement = Vector2( 0, -20 )
+
+[node name="Delay" parent="Sequence" index="2" instance=ExtResource( 3 )]
+
+[node name="FadeOut" parent="Sequence" index="3" instance=ExtResource( 6 )]
+duration = 0.5
+actor_path = NodePath("../../Actors/Texture")
+displacement = Vector2( 0, 20 )
+
+[editable path="Actors/Text/Text"]
+[editable path="Actors/Text/Text3"]
+[editable path="Actors/Text/Text2"]
+[editable path="Actors/Text/Text5"]
+[editable path="Actors/Text/Text4"]

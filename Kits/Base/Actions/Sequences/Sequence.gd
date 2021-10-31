@@ -1,11 +1,18 @@
 extends Action
 class_name Sequence
 
+export var auto_run : bool = false
+
 onready var actions : Array = get_children()
 
 var next_action : int
 var active_count : int
 var is_blocked : bool
+
+
+func _ready():
+	if auto_run:
+		start()
 
 
 func start():

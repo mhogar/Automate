@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Kits/Base/Actions/Sequences/Sequence.tscn" type="PackedScene" id=1]
+
+[node name="Root" type="CanvasLayer"]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Sequence" parent="." instance=ExtResource( 1 )]
+auto_run = true
