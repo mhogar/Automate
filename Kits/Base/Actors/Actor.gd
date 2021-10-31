@@ -1,7 +1,7 @@
-extends Node2D
+extends CanvasItem
 class_name Actor
 
-export var start_hidden : bool = true
+export var start_hidden : bool = false
 
 
 func _ready():

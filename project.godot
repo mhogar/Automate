@@ -14,15 +14,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Kits/Base/Actions/Action.gd"
 }, {
-"base": "Node2D",
+"base": "CanvasItem",
 "class": "Actor",
 "language": "GDScript",
 "path": "res://Kits/Base/Actors/Actor.gd"
+}, {
+"base": "TweenAction",
+"class": "AdjustBlurAction",
+"language": "GDScript",
+"path": "res://Kits/Base/Actions/Tweens/Filters/AdjustBlur.gd"
 }, {
 "base": "Sequence",
 "class": "ArraySequence",
 "language": "GDScript",
 "path": "res://Kits/Base/Actions/Sequences/ArraySequence.gd"
+}, {
+"base": "Actor",
+"class": "BlurFilter",
+"language": "GDScript",
+"path": "res://Kits/Base/Filters/BlurFilter.gd"
 }, {
 "base": "Node2D",
 "class": "ContainerActor",
@@ -72,7 +82,9 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Action": "",
 "Actor": "",
+"AdjustBlurAction": "",
 "ArraySequence": "",
+"BlurFilter": "",
 "ContainerActor": "",
 "DelayAction": "",
 "FadeInAction": "",
