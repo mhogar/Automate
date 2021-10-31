@@ -1,0 +1,53 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+const float PI = 3.14159265358979323846;
+
+uniform vec2 scroll = vec2(0.5);
+uniform vec4 color1 = vec4(1.0);
+uniform vec4 color2 = vec4(vec3(0.0), 1.0);
+
+vec2 rotate2D(vec2 st, float angle){
+    st -= 0.5;
+    st = mat2(vec2(cos(angle), -sin(angle)), vec2(sin(angle), cos(angle))) * st;
+    st += 0.5;
+    return st;
+}
+
+vec2 tile(vec2 st, vec2 zoom){
+    st *= zoom;
+    return fract(st);
+}
+
+float box(vec2 st, vec2 size, float smoothEdges){
+    size = vec2(0.5) - size*0.5;
+    vec2 aa = vec2(smoothEdges*0.5);
+    vec2 uv = smoothstep(size, size+aa, st);
+    uv *= smoothstep(size, size+aa, vec2(1.0)-st);
+    return uv.x * uv.y;
+}
+
+void fragment() {
+    vec2 st = UV*0.8 + (scroll*TIME);
+	vec3 color = vec3(0.0);
+
+    st = tile(st, vec2(2.0, 1.0));
+    st = rotate2D(st, PI*0.25);
+
+	float s = box(st, vec2(0.7), 0.5);
+	if (s > 0.0) {
+		COLOR = color1;
+	}
+	else {
+		COLOR = color2;
+	}
+}
+"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/scroll = Vector2( 0.5, 0.5 )
+shader_param/color1 = Plane( 1, 1, 1, 1 )
+shader_param/color2 = Plane( 0, 0, 0, 1 )

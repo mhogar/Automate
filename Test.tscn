@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Kits/Base/Actors/Containers/Container.tscn" type="PackedScene" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Kits/Base/Actors/Texture.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Kits/Base/Actions/Tweens/Fades/FadeIn.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Background.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/PixelAE-Bold.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Kits/Base/Actors/Text.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Kits/Base/Actions/Tweens/Fades/FadeOut.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Kits/Base/Actions/Delay.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Kits/Base/Actions/Sequences/ArraySequence.tscn" type="PackedScene" id=10]
 
 [sub_resource type="DynamicFont" id=1]
@@ -15,6 +17,16 @@ font_data = ExtResource( 6 )
 
 [node name="Test" instance=ExtResource( 1 )]
 is_root = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="0"]
+layer = -1
+
+[node name="Background" parent="CanvasLayer" index="0" instance=ExtResource( 5 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 0.0
+margin_bottom = 0.0
+scroll = Vector2( 0.5, -0.5 )
 
 [node name="Texture" parent="Actors" index="0" instance=ExtResource( 3 )]
 position = Vector2( 517.305, 164.111 )
@@ -99,13 +111,16 @@ margin_bottom = 25.0
 custom_fonts/font = SubResource( 1 )
 text = "Micro-Service"
 
-[node name="FadeIn" parent="Sequence" index="0" instance=ExtResource( 4 )]
+[node name="Delay" parent="Sequence" index="0" instance=ExtResource( 9 )]
+duration = 2.0
+
+[node name="FadeIn" parent="Sequence" index="1" instance=ExtResource( 4 )]
 is_blocking = true
 transition_type = 10
 actor_path = NodePath("../../Actors/Texture")
 displacement = Vector2( 0, -20 )
 
-[node name="ArraySequence" parent="Sequence" index="1" instance=ExtResource( 10 )]
+[node name="ArraySequence" parent="Sequence" index="2" instance=ExtResource( 10 )]
 is_blocking = true
 delay = 0.45
 actors_path = NodePath("../../Actors/Text")
@@ -115,7 +130,9 @@ duration = 0.45
 transition_type = 10
 displacement = Vector2( 0, -20 )
 
-[node name="FadeOut" parent="Sequence" index="2" instance=ExtResource( 8 )]
+[node name="Delay2" parent="Sequence" index="3" instance=ExtResource( 9 )]
+
+[node name="FadeOut" parent="Sequence" index="4" instance=ExtResource( 8 )]
 duration = 0.5
 actor_path = NodePath("../../Actors/Texture")
 displacement = Vector2( 0, 20 )
