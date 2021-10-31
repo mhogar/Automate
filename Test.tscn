@@ -101,6 +101,7 @@ text = "Micro-Service"
 
 [node name="FadeIn" parent="Sequence" index="0" instance=ExtResource( 4 )]
 is_blocking = true
+transition_type = 10
 actor_path = NodePath("../../Actors/Texture")
 displacement = Vector2( 0, -20 )
 
@@ -111,6 +112,7 @@ actors_path = NodePath("../../Actors/Text")
 
 [node name="FadeIn" parent="Sequence/ArraySequence" index="0" instance=ExtResource( 4 )]
 duration = 0.45
+transition_type = 10
 displacement = Vector2( 0, -20 )
 
 [node name="FadeOut" parent="Sequence" index="2" instance=ExtResource( 8 )]
