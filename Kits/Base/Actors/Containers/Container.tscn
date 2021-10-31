@@ -3,9 +3,19 @@
 [ext_resource path="res://Kits/Base/Actors/Containers/Container.gd" type="Script" id=1]
 [ext_resource path="res://Kits/Base/Actions/Sequences/Sequence.tscn" type="PackedScene" id=2]
 
-[node name="Container" type="Node2D"]
+[node name="Container" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Actors" type="Node2D" parent="."]
+[node name="Actors" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Sequence" parent="." instance=ExtResource( 2 )]
